@@ -7,5 +7,6 @@ export default class API_CONSTANTS {
 
   // leetcode
   static leetcodeDataById = this.BASE_URL+"/leetcode/<USER_ID>";
+  static studentsByMentor = this.BASE_URL+"/mentors/mentor/<MONTOR_ID>/students";
   
 }
