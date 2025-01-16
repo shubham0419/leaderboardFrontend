@@ -1,9 +1,43 @@
+import { useStudentManager } from '@/hooks/student.hook'
+import { mentorDataSelector } from '@/recoil/auth.atom';
+import { StudentsDataSelector } from '@/recoil/student.recoil';
+import { error } from 'console';
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useRecoilState } from 'recoil';
 
-const StudentTable = () => {
+
+const StudentTable = ({mentorId}:{mentorId:string}) => {
+
+  const studentManager = useStudentManager();
+  const [loading,setLoading] = useState(false);
+  const [studentData,setStudentData] = useRecoilState(StudentsDataSelector);
+  const [mentor,setMentor] = useRecoilState(mentorDataSelector);
+
+
+  const getStudentDataByMentor = async ()=>{
+    try {
+      setLoading(true);
+      let res = await studentManager.getStudentByMentor(mentorId);
+      if(res.status==200){
+        setStudentData(res.data?.data.students);
+      }else{
+        throw error("students not found for this mentor");
+      }
+    } catch (error) {
+      console.error(error);
+    }finally{
+      setLoading(false);
+    }
+  }
+
+  useEffect(()=>{
+    getStudentDataByMentor();
+  },[mentorId])
+
   return (
     <div className="grid grid-cols-12 gap-x-6">
+      {loading? <div className='flex justify-center items-center bg-gray-400'>Loading...</div>:
 				<div className="col-span-12">
 					<div className="box">
 						<div className="box-header">
@@ -24,91 +58,59 @@ const StudentTable = () => {
 								<table className="ti-custom-table ti-custom-table-head whitespace-nowrap table-bordered rounded-sm ti-custom-table-head ">
 									<thead className="bg-gray-50 dark:bg-black/20">
 										<tr className="">
-											<th scope="col" className="dark:text-white/80">S.no</th>
-											<th scope="col" className="dark:text-white/80">Item Details</th>
-											<th scope="col" className="dark:text-white/80">Customer ID</th>
-											<th scope="col" className="dark:text-white/80 min-w-[300px]">Customer Details</th>
-											<th scope="col" className="dark:text-white/80">Ordered Date</th>
-											<th scope="col" className="dark:text-white/80">Status</th>
-											<th scope="col" className="dark:text-white/80">Price</th>
-											<th scope="col" className="dark:text-white/80">Action</th>
+											<th scope="col" className="dark:text-white/80">Rank</th>
+											<th scope="col" className="dark:text-white/80">Name</th>
+											<th scope="col" className="dark:text-white/80">University</th>
+                      <th scope="col" className="dark:text-white/80">Leetcode Contests</th>
+                      <th scope="col" className="dark:text-white/80 "> Total LeetCode Questions</th>
+											<th scope="col" className="dark:text-white/80">Leetcode Easy</th>
+											<th scope="col" className="dark:text-white/80">Leetcode Medium</th>
+											<th scope="col" className="dark:text-white/80">Leetcode Hard</th>
+											<th scope="col" className="dark:text-white/80 ">Total Codeforces Questions</th>
+											<th scope="col" className="dark:text-white/80">Codeforces Ranking</th>
+											<th scope="col" className="dark:text-white/80">Codeforces Contests</th>
 										</tr>
 									</thead>
-									{/* <tbody className="">
-										{orderdetails.map((idx) => (
-											<tr className="" key={Math.random()}>
-												<td>{idx.id}</td>
+									<tbody className="">
+										{studentData?.map((data) => (
+											<tr className="" key={data.id}>
+												<td>{data?.leetcode_ranking}</td>
 												<td>
-													<div className="flex space-x-3 rtl:space-x-reverse w-full">
-														<img className="avatar rounded-sm bg-gray-100 dark:bg-black/20 p-2"
-															src={idx.src} alt="Image Description" />
-														<div className="block w-full my-auto">
-															<span
-																className="block text-sm font-semibold text-gray-800 dark:text-gray-300 min-w-[180px] truncate">{idx.class}</span>
-															<span className="block text-xs text-gray-400 dark:text-white/80 !font-normal">{idx.data}</span>
-														</div>
-													</div>
+													{data?.name}
 												</td>
-												<td className="!text-success font-semibold text-base">{idx.user}</td>
+												<td className="!text-success font-semibold text-base">{data?.institute}</td>
 												<td>
-													<div className="flex space-x-3 rtl:space-x-reverse text-start">
-														<img className="avatar avatar-sm rounded-sm" src={idx.src1}
-															alt="Image Description" />
-														<div className="block my-auto">
-															<p className="block text-sm font-semibold my-auto text-gray-800 dark:text-white">{idx.class1}</p>
-															<span
-																className="block text-xs text-gray-400 dark:text-white/80 !font-normal my-auto">{idx.data1}</span>
-														</div>
-													</div>
+													{data?.leetcode_contest.length || 0}
 												</td>
-												<td>{idx.date}</td>
-												<td><span
-													className={`truncate whitespace-nowrap inline-block py-1 px-3 rounded-full text-xs font-medium bg-${idx.color}/10 text-${idx.color}/80`}>{idx.text}</span>
+												<td>{data?.leetcode_all}</td>
+												<td>
+                          {data?.leetcode_easy}
 												</td>
-												<td>{idx.data2}</td>
-												<td className="font-medium space-x-2 rtl:space-x-reverse">
-													<div className="hs-tooltip ti-main-tooltip">
-														<Link href="#!"
-															className="!m-0 hs-tooltip-toggle relative w-8 h-8 ti-btn !rounded-full p-0 transition-none focus:outline-none ti-btn-soft-primary">
-															<i className="ti ti-eye"></i>
-															<span
-																className="hs-tooltip-content ti-main-tooltip-content py-1 px-2 bg-gray-900 text-xs font-medium text-white shadow-sm dark:bg-slate-700"
-																role="tooltip">
-																View
-															</span>
-														</Link>
-													</div>
-													<div className="hs-tooltip ti-main-tooltip">
-														<Link href="#!"
-															className="customer-edit !m-0 hs-tooltip-toggle relative w-8 h-8 ti-btn !rounded-full p-0 transition-none focus:outline-none ti-btn-soft-secondary">
-															<i className="ti ti-pencil"></i>
-															<span
-																className="hs-tooltip-content ti-main-tooltip-content py-1 px-2 bg-gray-900 text-xs font-medium text-white shadow-sm dark:bg-slate-700"
-																role="tooltip">
-																Edit
-															</span>
-														</Link>
-													</div>
-													<div className="hs-tooltip ti-main-tooltip">
-														<Link href="#!"
-															className="!m-0 hs-tooltip-toggle relative w-8 h-8 ti-btn !rounded-full p-0 transition-none focus:outline-none ti-btn-soft-danger">
-															<i className="ti ti-trash"></i>
-															<span
-																className="hs-tooltip-content ti-main-tooltip-content py-1 px-2 bg-gray-900 text-xs font-medium text-white shadow-sm dark:bg-slate-700"
-																role="tooltip">
-																Delete
-															</span>
-														</Link>
-													</div>
+												<td>{data?.leetcode_medium}</td>
+												<td>
+													{data?.leetcode_hard}
+												</td>
+												<td>
+													{data?.leetcode_hard}
+												</td>
+												<td>
+													{data?.codeforces_all}
+												</td>
+												<td>
+													{data?.codeforces_ranking}
+												</td>
+												<td>
+													{data?.codeforces_contest?.length || 0}
 												</td>
 											</tr>
 										))}
-									</tbody> */}
+									</tbody>
 								</table>
 							</div>
 						</div>
 					</div>
 				</div>
+        }
 			</div>
   )
 }
