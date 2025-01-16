@@ -57,7 +57,7 @@ const Login = () => {
             }
         } catch (error: any) {
             alert('Invalid OTP');
-            console.error(error.message);
+            console.error(error);
         } finally {
             setLoading(false);
         }
