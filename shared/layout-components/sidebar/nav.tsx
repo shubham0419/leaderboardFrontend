@@ -38,17 +38,17 @@ export const MenuItems :any   = [
 			},
 				]
 			},
-			{
-				id: 128, icon: AuthenticationSvg, title: "Authentication", type: "sub", active: false, selected: false, children: [
+			// {
+			// 	id: 128, icon: AuthenticationSvg, title: "Authentication", type: "sub", active: false, selected: false, children: [
 
-					{
-						id: 160, type: "sub", active: false, selected: false, title: "Error Pages", children: [
+			// 		{
+			// 			id: 160, type: "sub", active: false, selected: false, title: "Error Pages", children: [
 
-							{ id: 161, path: "/components/authentication/error-pages/404-error", type: "link", active: false, selected: false, title: "404 Error" },
-						]
-					},
-				]
-			},
+			// 				{ id: 161, path: "/components/authentication/error-pages/404-error", type: "link", active: false, selected: false, title: "404 Error" },
+			// 			]
+			// 		},
+			// 	]
+			// },
 
 ];
 export default MenuItems;

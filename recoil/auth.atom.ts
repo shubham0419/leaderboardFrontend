@@ -41,6 +41,21 @@ export const userDataSelector = selector<User | undefined >({
   }
 })
 
+// mentor data selector
+export const mentorDataSelector = selector<Mentor | undefined >({
+  key: 'mentorDataSelector',
+  get: ({ get }) => {
+    const auth = get(userAtom);
+    return auth.mentorDetails ?? undefined;
+  },
+  set:({set},val)=>{
+    set(userAtom,prev=>({
+      ...prev,
+      mentorDetails:val as Mentor
+    }))
+  }
+})
+
 //otp response selector
 export const otpResSelector = selector<loginOTPResType>({
   key: 'otpRes',

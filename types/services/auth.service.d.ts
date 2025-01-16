@@ -11,7 +11,7 @@ declare type loginOtpPayload = {
 declare type verifyUserRes = {
   status: string;
   message: string;
-  data: AuthResponse
+  data: AuthResponse 
 };
 
 declare type User = {
@@ -45,8 +45,17 @@ declare type User = {
   updated_at: Date; 
 };
 
+declare type Mentor = {
+  id:string,
+  name:string,
+  email:string,
+  isAdmin:boolean
+  created_at: Date;
+  updated_at: Date; 
+}
+
 declare type AuthResponse = {
-  user: User;
+  user: User | Mentor;
   accessToken: string;
 };
 
@@ -55,5 +64,6 @@ declare type AuthResponse = {
 declare type verifyUserPayload = {
   userId: string;
   otp: string;
+  isMentor? :boolean
 };
 

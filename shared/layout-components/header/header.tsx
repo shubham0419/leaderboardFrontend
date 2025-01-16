@@ -1,4 +1,3 @@
-
 import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { ThemeChanger } from "@/shared/redux/action";
@@ -6,10 +5,14 @@ import Modalsearch from "../modal-search/modalsearch";
 import store from "@/shared/redux/store";
 import Link from "next/link";
 import { basePath } from "@/next.config";
+import { useRecoilValue } from "recoil";
+import { mentorDataSelector, userDataSelector } from "@/recoil/auth.atom";
 
 const Header = ({ local_varaiable, ThemeChanger } :any) => {
 
     let [storedata, SetStoreData] = useState(local_varaiable);
+    const user = useRecoilValue(userDataSelector);
+    const mentor = useRecoilValue(mentorDataSelector);
 
     //full screen
     function Fullscreen() {
@@ -297,8 +300,6 @@ const Header = ({ local_varaiable, ThemeChanger } :any) => {
                         <div className="header-right">
                             <div className="responsive-headernav">
                                 <div className="header-nav-right">
-                                  
-
                                     <div className="header-theme-mode hidden sm:block" onClick={() => ToggleDark()} >
                                         <Link aria-label="anchor" className="hs-dark-mode-active:hidden flex hs-dark-mode group flex-shrink-0 justify-center items-center gap-2 h-[2.375rem] w-[2.375rem] rounded-full font-medium  hover:bg-gray-200 text-gray-500 align-middle focus:outline-none focus:ring-0 focus:ring-gray-400 focus:ring-offset-0 focus:ring-offset-white transition-all text-xs dark:bg-bgdark dark:hover:bg-black/20 dark:text-white/70 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10"
                                             href="#!" data-hs-theme-click-value="dark">
@@ -330,8 +331,8 @@ const Header = ({ local_varaiable, ThemeChanger } :any) => {
                                                         src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/img/users/1.jpg`} alt="profile-img" />
                                                 </div>
                                                 <div>
-                                                    <p className="ti-dropdown-header-title !text-white">Json Taylor</p>
-                                                    <p className="ti-dropdown-header-content !text-white/50">Web Designer</p>
+                                                    <p className="ti-dropdown-header-title !text-white">{mentor?mentor.name:user?.name}</p>
+                                                    <p className="ti-dropdown-header-content !text-white/50"></p>
                                                 </div>
                                             </div>
                                             <div className="mt-2 ti-dropdown-divider">

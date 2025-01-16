@@ -557,7 +557,7 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
 			<aside className="app-sidebar" id="sidebar" onMouseOver={() => Onhover()}
 				onMouseLeave={() => Outhover()} >
 				<div className="main-sidebar-header">
-					<Link href={"/components/dashboards/sales/"} className="header-logo">
+					<Link href={"/dashboard/page/"} className="header-logo">
 						<img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/img/brand-logos/desktop-logo.png`} alt="logo" className="main-logo desktop-logo" />
 						<img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/img/brand-logos/toggle-logo.png`} alt="logo" className="main-logo toggle-logo" />
 						<img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/img/brand-logos/desktop-dark.png`} alt="logo" className="main-logo desktop-dark" />

@@ -16,7 +16,7 @@ export function middleware(request: NextRequest) {
   }
 
   if (!token) {
-    const loginUrl = new URL('/login', request.url);
+    const loginUrl = new URL('/', request.url);
     return NextResponse.redirect(loginUrl);
   }
 
