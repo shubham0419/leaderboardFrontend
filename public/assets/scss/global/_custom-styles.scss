@@ -1,0 +1,562 @@
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+//form-switch
+#statistics {
+  @apply bg-[url("../public/assets/img/landing/1.jpg")];
+}
+
+//form-layouts
+.react-datepicker__calendar-icon {
+  @apply fill-[#64748b] mt-1;
+}
+
+//customized styles
+.upcoming-list,
+.crypto-trans,
+.traders-list,
+.vistors-list,
+.instructors-list {
+  li:last-child {
+    @apply mb-0 #{!important};
+  }
+}
+
+.customer-list,
+.popular-blog-list {
+  li:last-child {
+    @apply pb-0 #{!important};
+  }
+}
+
+.billing-search .react-select__control {
+  @apply min-h-[44px] #{!important};
+}
+
+.react-datepicker__calendar-icon {
+  @apply hidden;
+}
+
+.ti-form-invalid {
+  .react-select__control {
+    @apply border-red-500 #{!important};
+  }
+}
+
+.ti-form-valid {
+  .react-select__control {
+    @apply border-green-500 #{!important};
+  }
+}
+
+#range-slider-ab .range-slider__thumb[data-lower] {
+  @apply bg-red-500 bg-none #{!important};
+}
+
+#range-slider-ab .range-slider__thumb[data-upper] {
+  @apply bg-red-500 bg-none #{!important};
+}
+
+.rangeslider-two-thumb {
+  .rangeslider-thumb div div:first-child {
+    @apply -top-[34px] #{!important};
+  }
+}
+
+.react-dropdown-select {
+  @apply rounded-sm #{!important};
+}
+
+.react-dropdown-select-option-remove:hover {
+  @apply text-white #{!important};
+}
+
+.react-dropdown-select-option {
+  @apply rounded-[20px] #{!important};
+}
+
+.ProductTag {
+  .rti--container {
+    @apply p-0 border-0 #{!important};
+  }
+}
+
+//editproducts
+.product-search {
+  .css-13cymwt-control {
+    @apply bg-white border-gray-200 dark:bg-bgdark dark:border-white/10 rounded-sm #{!important};
+  }
+
+  .css-1u9des2-indicatorSeparator {
+    @apply bg-gray-200 dark:bg-white/10 hidden #{!important};
+  }
+
+  .css-1xc3v61-indicatorContainer {
+    @apply text-gray-200 dark:text-white/10 #{!important};
+  }
+
+  .css-1fdsijx-ValueContainer {
+    @apply p-2 #{!important};
+  }
+
+  .css-t3ipsp-control:hover {
+    @apply border-gray-200 dark:border-white/10 #{!important};
+  }
+}
+
+html {
+  @apply scroll-smooth;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  @apply appearance-none;
+}
+
+@media (min-width: 992px) {
+  [data-nav-layout="horizontal"] {
+
+    &[data-nav-style="icon-click"][data-toggled="icon-click-closed"],
+    &[data-nav-style="icon-hover"][data-toggled="icon-hover-closed"] {
+      .app-sidebar .slide.has-sub .slide-menu.child1 {
+        @apply top-[2.65rem] #{!important};
+      }
+    }
+  }
+
+  .theme-container1 {
+    @apply me-[9rem];
+  }
+
+  .theme-container {
+    @apply ms-[9rem] #{!important};
+  }
+
+}
+
+//gradient menu
+[data-menu-styles=gradient] .app-sidebar:before {
+  @apply bottom-0 left-0 -z-[1];
+}
+
+//form-switch
+.ti-switch:before {
+  content: var(--tw-content);
+}
+
+@media (min-width: 991.98px) {
+  [data-nav-layout="horizontal"][data-nav-style="menu-hover"][data-width="boxed"] {
+    .main-menu-container {
+      @apply overflow-hidden w-full;
+    }
+  }
+}
+
+.firebase-data {
+  @apply rounded-md bg-bodybg p-[7px] ms-[145px] w-[27%];
+}
+
+.hs-overlay-backdrop {
+  @apply z-50;
+}
+
+#currency-select {
+  .react-select__control {
+    @apply border-0 #{!important};
+  }
+}
+
+.react-select__input-container {
+  @apply dark:text-white;
+}
+
+[dir="rtl"] {
+  .MuiTreeItem-iconContainer {
+    .MuiSvgIcon-root {
+      @apply rotate-180;
+    }
+  }
+}
+
+// /@
+:is(.dark .ti-form-radio:checked) {
+  @apply border-primary bg-primary;
+}
+
+.\!p-\[0\.65rem\] {
+  @apply p-[0.63rem] #{!important};
+}
+
+.contact-dropdown {
+  .ti-btn-primary {
+    @apply m-0 me-1 #{!important};
+  }
+}
+
+.react-dropdown-select-item {
+  @apply border-b-0 #{!important};
+}
+
+.Select2__control {
+  @apply dark:bg-bgdark dark:border-white/10 dark:hover:border-white/10;
+}
+
+.Select2__indicator-separator {
+  @apply dark:bg-white/10 #{!important};
+}
+
+.react-dropdown-select {
+  @apply min-h-12 #{!important};
+}
+
+.filepond--panel-center.filepond--panel-root {
+  @apply dark:border-white/10 border-[3px] #{!important};
+}
+::-webkit-scrollbar {
+  @apply h-[5px] w-0 #{!important};
+}
+
+.Select2__control {
+  .Select2__value-container {
+    .css-1p3m7a8-multiValue {
+      @apply bg-primary text-[#fff] rounded-full #{!important};
+
+      .css-wsp0cs-MultiValueGeneric {
+        @apply text-[#fff] #{!important};
+      }
+    }
+  }
+}
+
+#chart {
+  .apexcharts-datalabels-group {
+    text {
+      @apply text-[20px] #{!important};
+    }
+  }
+}
+
+.Select2__control {
+  @apply border-defaultborder dark:border-defaultborder/10 #{!important};
+}
+
+#range-slider-yellow {
+  @apply bg-none #{!important};
+}
+
+[dir="rtl"] {
+  .tabulator .tabulator-row .tabulator-cell:nth-child(9) {
+    @apply border-s border-defaultborder #{!important};
+  }
+}
+
+.team-members {
+  .ti-form-select {
+    @apply w-[17rem] #{!important};
+  }
+}
+
+.rti--container {
+  .rti--tag {
+    @apply bg-primary text-white #{!important};
+  }
+}
+
+.pilledselect {
+  .react-select__control {
+    @apply rounded-full #{!important};
+  }
+}
+
+.ProductTag {
+  .rti--container {
+    .rti--tag {
+      @apply bg-gray-100 text-gray-800 #{!important};
+    }
+  }
+}
+
+.billing-search {
+  @apply w-[80px] #{!important};
+}
+
+.place-holder {
+
+  .css-13cymwt-control,
+  .css-16xfy0z-control {
+    @apply bg-white dark:bg-bgdark border-defaultborder dark:border-defaultborder/10;
+  }
+
+  .css-894a34-indicatorSeparator,
+  .css-1u9des2-indicatorSeparator {
+    @apply bg-defaultborder dark:bg-defaultborder/10 #{!important};
+  }
+}
+
+.Select2__menu {
+  @apply bg-white dark:bg-bgdark border-defaultborder dark:border-defaultborder/10;
+}
+
+#crypto {
+  .apexcharts-text {
+    @apply text-[11px] #{!important};
+  }
+}
+
+.filepond--drop-label span {
+  @apply underline;
+}
+
+.inline-leading-select .react-select__control {
+  @apply w-[100px] text-ellipsis overflow-hidden whitespace-nowrap;
+}
+
+.currency-converter .react-select__control {
+  @apply border-0;
+}
+
+.dashboard-contacts .ri-arrow-right-s-line {
+
+  @apply rtl:rotate-0 #{!important};
+
+  &:before {
+    @apply rtl:rotate-180 #{!important};
+  }
+
+}
+[type='time'] {
+  @apply dark:bg-black/20 #{!important};
+}
+#__next {
+  @apply w-full;
+}
+
+.selectpage {
+  @apply rounded-md border border-defaultborder bg-bodybg #{!important};
+}
+select {
+  @apply bg-[start_0.5rem_center] pe-[2.25rem] ps-[0.5rem];
+}
+[type="text"],
+input:where(:not([type])),
+[type="email"],
+[type="url"],
+[type="password"],
+[type="number"],
+[type="date"],
+[type="datetime-local"],
+[type="month"],
+[type="search"],
+[type="tel"],
+[type="time"],
+[type="week"],
+[multiple],
+textarea,
+select {
+  @apply appearance-none bg-white border leading-6 px-3 py-2;
+}
+button,
+select {
+  @apply normal-case;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  @apply text-[100%] font-[inherit] leading-[inherit] text-inherit m-0 p-0;
+}
+.table-bordered {
+  @apply w-full border #{!important};
+}
+.basic-data-table select {
+  @apply text-base pr-[2.5rem] pl-[0.5rem] py-[0.5rem];
+}
+.mySwiper8 .swiper-slide.swiper-slide-active {
+  @apply m-0 #{!important};
+}
+.switcher-style {
+  @apply mt-0 py-4 #{!important};
+}
+.selectpage,
+input:where(:not([type])) {
+  @apply dark:bg-bgdark dark:border-white/10  #{!important};
+}
+.yarl__carousel .yarl__slide_captions_container .yarl__slide_description {
+  @apply text-white;
+}
+.MuiCollapse-root.MuiTreeItem-group {
+  @apply me-[17px] rtl:mr-[17px];
+}
+.react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle,
+.react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle {
+  @apply dark:border-white/10 dark:fill-bgdark  dark:text-bgdark #{!important};
+}
+.h-8vh {
+  @apply h-[80vh];
+}
+.cart-box [type="text"],
+#product-quantity {
+  @apply text-xs leading-[0.9rem];
+}
+[dir="rtl"] {
+  .rangeslider-thumb {
+    @apply dir-ltr;  
+  } 
+}
+#hs-split-dropright,
+#hs-split-dropup,
+#hs-split-dropleft {
+  @apply ml-[-0.5rem] rtl:mr-[-0.5rem];
+}
+#users-map .controls svg {
+  @apply w-[15px] h-[15px] leading-[0] fill-black text-white bg-black rounded-sm #{!important}; 
+}
+
+@media (min-width: 992px) {
+  [data-nav-layout="horizontal"][data-nav-style="menu-click"] {
+    .app-sidebar .side-menu__angle {
+      @apply leading-none;
+    }
+  }
+  [dir="rtl"][data-nav-layout="horizontal"][data-nav-style="menu-click"] {
+    .app-sidebar .side-menu__angle {
+      @apply leading-[0];
+    }
+  }
+}
+.multiple-month-picker {
+  .react-datepicker {
+    @apply w-[31rem];
+  }
+}
+.fc-view-harness.fc-view-harness-active {
+  @apply h-[970px] #{!important};
+} 
+
+@media screen and (min-width:992px) and (hover: none) and (pointer: coarse) {
+  [data-nav-style="menu-hover"] {
+    .slide {
+      .side-menu__item {
+        @apply z-0;
+      }
+
+      &.has-sub {
+        .side-menu__item {
+          @apply z-[-1];
+        }
+      }
+
+      .slide-menu {
+        .slide {
+          .side-menu__item {
+            @apply z-0;
+          }
+
+          &.has-sub {
+            .side-menu__item {
+              @apply z-[-1];
+            }
+          }
+        }
+        .slide-menu {
+          .slide {
+            .side-menu__item {
+              @apply z-0;
+            }
+  
+            &.has-sub {
+              .side-menu__item {
+                @apply z-[-1];
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  [data-nav-style="icon-hover"] {
+    .slide {
+      .side-menu__item {
+        @apply z-0;
+      }
+
+      &.has-sub {
+        .side-menu__item {
+          @apply z-[-1];
+        }
+      }
+
+      .slide-menu {
+        .slide {
+          .side-menu__item {
+            @apply z-0;
+          }
+
+          &.has-sub {
+            .side-menu__item {
+              @apply z-[-1];
+            }
+          }
+        }
+        .slide-menu {
+          .slide {
+            .side-menu__item {
+              @apply z-0;
+            }
+  
+            &.has-sub {
+              .side-menu__item {
+                @apply z-[-1];
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+@media (max-width:991.98px) {
+  [data-nav-layout="horizontal"] {
+    .app-sidebar .main-sidebar  {
+      @apply h-full overflow-y-scroll;
+    }
+  }
+}
+#vector-map svg {
+  @apply h-[337px] w-full;
+}
+#marker-map svg {
+  @apply h-[360px] w-full #{!important};
+}
+#russia-map svg, #us-map svg, #marker-image-map svg, #lines-map svg, #marker-map svg {
+  @apply h-[310px] w-full #{!important};
+}
+.pickr-container-primary .pickr .pcr-button {
+  @apply after:bg-primary #{!important};
+}
+
+.pickr-container-background .pickr .pcr-button {
+  @apply after:bg-primary #{!important};
+}
+ [data-nav-layout="horizontal"][data-nav-style="menu-click"] .app-sidebar .slide.has-sub .slide-menu.child1.force-left, [data-nav-layout="horizontal"][data-nav-style="menu-hover"] .app-sidebar .slide.has-sub .slide-menu.child1.force-left, [data-nav-layout="horizontal"][data-nav-style="icon-click"] .app-sidebar .slide.has-sub .slide-menu.child1.force-left, [data-nav-layout="horizontal"][data-nav-style="icon-hover"] .app-sidebar .slide.has-sub .slide-menu.child1.force-left {
+  @apply end-0 #{!important};
+}
+[data-nav-layout="horizontal"][data-nav-style="menu-click"] .app-sidebar .slide.has-sub .slide-menu.child2.force-left, [data-nav-layout="horizontal"][data-nav-style="menu-click"] .app-sidebar .slide.has-sub .slide-menu.child3.force-left, [data-nav-layout="horizontal"][data-nav-style="menu-hover"] .app-sidebar .slide.has-sub .slide-menu.child2.force-left, [data-nav-layout="horizontal"][data-nav-style="menu-hover"] .app-sidebar .slide.has-sub .slide-menu.child3.force-left, [data-nav-layout="horizontal"][data-nav-style="icon-click"] .app-sidebar .slide.has-sub .slide-menu.child2.force-left, [data-nav-layout="horizontal"][data-nav-style="icon-click"] .app-sidebar .slide.has-sub .slide-menu.child3.force-left, [data-nav-layout="horizontal"][data-nav-style='icon-hover'] .app-sidebar .slide.has-sub .slide-menu.child2.force-left, [data-nav-layout="horizontal"][data-nav-style="icon-hover"] .app-sidebar .slide.has-sub .slide-menu.child3.force-left {
+  @apply start-[-100%] #{!important}
+}
