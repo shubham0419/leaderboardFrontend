@@ -114,7 +114,7 @@ const StudentTable = ({mentorId}:{mentorId:string}) => {
 					</div>
 				</div>
         }
-			</div>
+	</div>
   )
 }
 

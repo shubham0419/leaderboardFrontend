@@ -6,6 +6,7 @@ import Seo from '@/shared/layout-components/seo/seo';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
+import StudentQuestionsTable from '@/components/tabels/StudentQuestionsTable';
 
 const Page = () => {
   const router = useRouter()
@@ -39,7 +40,7 @@ const Page = () => {
       let payload = {oauth_id:oauth_id,year:"2025"}
       let res = await studentManager.getStudentLeetcodeQuestions(payload);
       if(res.status==200){
-        setLeetCodeQusetions(res?.data?.data.problem as ProblemData[]);
+        setLeetCodeQusetions(res?.data?.data.problems as ProblemData[]);
       }else{
         throw {
           message:"Questions not found"
@@ -63,6 +64,7 @@ const Page = () => {
     <div className='flex flex-col '>
       <QuestionNumberCard/>
     </div>
+    <StudentQuestionsTable />
   </div>
   )
 }
