@@ -17,7 +17,7 @@ const UploadFile = () => {
 
     const formData = new FormData();
     formData.append("datafiles", file as File);
-    formData.append("mentorId","b2fe2d66-424f-494a-bf1f-ebf2f4b585aa");
+    formData.append("mentorId","d42587b7-8c41-43e5-9e45-9c3310620da1");
     formData.append("institue","GLA");
 
     try {
@@ -36,9 +36,9 @@ const UploadFile = () => {
 
   return (
     <div>
-      <button onClick={() => setIsOpen(true)} className="bg-blue-500 text-white px-4 py-2 rounded">Upload File</button>
+      <button onClick={() => setIsOpen(true)} className="bg-blue-500 text-white px-4 py-2 rounded float-right">Upload File</button>
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
           <div className="bg-white p-6 rounded shadow-md w-[90%] max-w-md">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-bold">Upload File in XLXS Format</h2>
@@ -71,6 +71,7 @@ const UploadFile = () => {
               <button
                 type="submit"
                 disabled={name.length < 2}
+                onClick={()=>setIsOpen(false)}
                 className={`px-4 py-2 rounded text-white ${name.length < 2 ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'}`}
               >
                 Upload

@@ -6,14 +6,14 @@ import React from 'react'
 
 const Page = () => {
 
-  
-
   return (
     <div>
       <Seo title="dashboard"/>
-			<PageHeader currentpage="Dashboard" activepage="home" mainpage="Dashboard" />
+			<PageHeader currentpage="Dashboard"  mainpage="Dashboard" />
+      <div className='flex flex-col'>
       <UploadFile/>
-      <StudentTable mentorId='b2fe2d66-424f-494a-bf1f-ebf2f4b585aa'/>
+      <StudentTable mentorId='d42587b7-8c41-43e5-9e45-9c3310620da1'/>
+      </div>
     </div>
   )
 }

@@ -36,9 +36,7 @@ const Sales = () => {
 									<p className="text-xs text-gray-400 ">in last week</p>
 								</div>
 							</div>
-
 						</div>
-
 					</div>
 				))}
 			</div>

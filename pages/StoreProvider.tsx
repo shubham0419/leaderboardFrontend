@@ -11,7 +11,7 @@ export default function StoreProvider({children}: {children: React.ReactNode}){
 }
 
 const InnerChildren = (({children} : {children: React.ReactNode})=>{
-  const isMentor = Cookies.get("mentor") === "true";
+  const isMentor = Cookies.get("mentor");
   const userId = Cookies.get("CBuser");
   const token = Cookies.get("CBaccessToken");
 

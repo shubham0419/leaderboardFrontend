@@ -39,4 +39,21 @@ export const StudentMentorSelector = selector<Mentor | undefined>({
       }
     })
   }
+});
+
+// selected student selector
+export const SelectedStudentSelector = selector<User>({
+  key: 'SelectedStudentSelector',
+  get: ({ get }) => {
+    const studentData = get(StudentDataAtom);
+    return studentData.selectedStudent ?? undefined;
+  },
+  set: ({ set }, newValue) => {
+    set(StudentDataAtom, prev=>{
+      return {
+        ...prev,
+        selectedStudent: newValue as User
+      }
+    })
+  }
 })

@@ -1,9 +1,10 @@
 import { UseStudentManager } from '@/hooks/student.hook'
 import { mentorDataSelector } from '@/recoil/auth.atom';
-import { StudentsDataSelector } from '@/recoil/student.recoil';
+import { SelectedStudentSelector, StudentsDataSelector } from '@/recoil/student.recoil';
 import Link from 'next/link'
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 
 const StudentTable = ({mentorId}:{mentorId:string}) => {
@@ -12,7 +13,8 @@ const StudentTable = ({mentorId}:{mentorId:string}) => {
   const [loading,setLoading] = useState(false);
   const [studentData,setStudentData] = useRecoilState(StudentsDataSelector);
   const [mentor,setMentor] = useRecoilState(mentorDataSelector);
-
+	const setSelectedStudent = useSetRecoilState(SelectedStudentSelector);
+	const router = useRouter();
 
   const getStudentDataByMentor = async ()=>{
     try {
@@ -32,10 +34,16 @@ const StudentTable = ({mentorId}:{mentorId:string}) => {
 
   useEffect(()=>{
     getStudentDataByMentor();
-  },[mentorId])
+  },[mentorId]);
+
+
+	const handleStudentClick = (studentId: string) => {
+		// setSelectedStudent(studentId);
+		router.push(`/student/${studentId}`);
+	}
 
   return (
-    <div className="grid grid-cols-12 gap-x-6">
+    <div className="grid grid-cols-12 gap-x-6 pt-2">
       {loading? <div className='flex justify-center items-center bg-gray-400'>Loading...</div>:
 				<div className="col-span-12">
 					<div className="box">
@@ -72,7 +80,7 @@ const StudentTable = ({mentorId}:{mentorId:string}) => {
 									</thead>
 									<tbody className="">
 										{studentData?.map((data) => (
-											<tr className="" key={data.id}>
+											<tr className="" key={data.id} onClick={()=>handleStudentClick(data.id)}>
 												<td>{data?.leetcode_ranking}</td>
 												<td>
 													{data?.name}
@@ -86,9 +94,6 @@ const StudentTable = ({mentorId}:{mentorId:string}) => {
                           {data?.leetcode_easy}
 												</td>
 												<td>{data?.leetcode_medium}</td>
-												<td>
-													{data?.leetcode_hard}
-												</td>
 												<td>
 													{data?.leetcode_hard}
 												</td>
