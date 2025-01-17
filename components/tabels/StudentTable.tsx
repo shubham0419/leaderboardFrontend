@@ -13,8 +13,8 @@ const StudentTable = ({mentorId}:{mentorId:string}) => {
   const [loading,setLoading] = useState(false);
   const [studentData,setStudentData] = useRecoilState(StudentsDataSelector);
   const [mentor,setMentor] = useRecoilState(mentorDataSelector);
-	const setSelectedStudent = useSetRecoilState(SelectedStudentSelector);
-	const router = useRouter();
+  const setSelectedStudent = useSetRecoilState(SelectedStudentSelector);
+  const router = useRouter();
 
   const getStudentDataByMentor = async ()=>{
     try {
