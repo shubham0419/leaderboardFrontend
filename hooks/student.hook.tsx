@@ -13,5 +13,14 @@ export function useStudentManager(){
     }
   }
 
-  return { getStudentByMentor }
+  const getStudentById = async(studentId:string):Promise<StudentByIdController>=>{
+    try {
+      let res = await Student.getStudentById(studentId);
+      return successResponse<typeof res>({ data: res });
+    } catch (error:any) {
+      return errorResponse({message: error.toString()})
+    }
+  }
+
+  return { getStudentByMentor,getStudentById }
 }

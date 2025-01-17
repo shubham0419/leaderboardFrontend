@@ -6,3 +6,11 @@ declare type StudentsbyMentorResTye = {
     students: User[]
   };
 };
+
+declare type StudentByIdResType = {
+  status: string;
+  message: string;
+  data: {
+    students: User[]
+  };
+};

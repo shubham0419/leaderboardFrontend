@@ -271,9 +271,6 @@ const Header = ({ local_varaiable, ThemeChanger } :any) => {
     }, []);
 
     
-    
-    
-  
     return (
         <Fragment>
             <header className="header custom-sticky !top-0 !w-full">
