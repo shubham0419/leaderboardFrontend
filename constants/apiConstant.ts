@@ -10,4 +10,7 @@ export default class API_CONSTANTS {
   static studentsByMentor = this.BASE_URL+"/mentors/mentor/<MENTOR_ID>/students";
   static studentById = this.BASE_URL+"/student/<STUDENT_ID>";
   
+  // mentor
+  static mentorById = this.BASE_URL+"/mentors/mentor/<MENTOR_ID>";
+
 }

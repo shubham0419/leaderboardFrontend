@@ -1,6 +1,6 @@
 import { UseAuthManager } from "@/hooks/auth.hook";
 import { basePath } from "@/next.config";
-import { authStateSelector, emailSelector, isMentorSelector, mentorDataSelector, otpResSelector, otpSelector, userDataSelector, userIdSelector } from "@/recoil/auth.atom";
+import { authStateSelector, emailSelector, isMentorSelector, mentorDataSelector, otpResSelector, otpSelector, studentDataSelector, studentIdSelector } from "@/recoil/auth.atom";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Fragment, useEffect, useRef, useState } from "react";
@@ -18,12 +18,12 @@ const Login = () => {
 
     // otp states
     const [value, setValue] = useRecoilState(otpSelector);
-    const userId = useRecoilValue(userIdSelector);
-    const setUser = useSetRecoilState(userDataSelector);
+    const userId = useRecoilValue(studentIdSelector);
+    const setUser = useSetRecoilState(studentDataSelector);
     const setMentor = useSetRecoilState(mentorDataSelector);
     const router = useRouter();
 
-    if(Cookies.get("CBaccessToken")){
+    if(Cookies.get("CBaccessToken") && Cookies.get("CBuser")){
         router.push("/dashboard/page");
     }
 
@@ -41,6 +41,10 @@ const Login = () => {
             let res = await authManager.verifyOTP(payload);
             if(res.data?.data) {
                 if(isMentor){
+                    Cookies.set('mentor',"1", {
+                        expires: 7, 
+                        // secure: process.env.NODE_ENV === 'production', 
+                    });
                     setMentor(res?.data?.data?.user as Mentor);
                 }else{
                     setUser(res?.data?.data?.user as User);

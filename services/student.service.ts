@@ -6,7 +6,7 @@ export default class Student {
   static getStudentById = async (studentId:string)=>{
     return new Promise<StudentByIdResType>(async (resolve,reject)=>{
       try {
-        let res = await axios.get(API_CONSTANTS.studentById.replace("STUDENT_ID",studentId));
+        let res = await axios.get(API_CONSTANTS.studentById.replace("<STUDENT_ID>",studentId));
         if (res?.data?.status == "failed") throw res.data.message;
         return resolve(JSON.parse(JSON.stringify(res.data)) as StudentByIdResType);
       } catch (error:any) {

@@ -6,12 +6,12 @@ import store from "@/shared/redux/store";
 import Link from "next/link";
 import { basePath } from "@/next.config";
 import { useRecoilValue } from "recoil";
-import { mentorDataSelector, userDataSelector } from "@/recoil/auth.atom";
+import { mentorDataSelector, studentDataSelector } from "@/recoil/auth.atom";
 
 const Header = ({ local_varaiable, ThemeChanger } :any) => {
 
     let [storedata, SetStoreData] = useState(local_varaiable);
-    const user = useRecoilValue(userDataSelector);
+    const user = useRecoilValue(studentDataSelector);
     const mentor = useRecoilValue(mentorDataSelector);
 
     //full screen
