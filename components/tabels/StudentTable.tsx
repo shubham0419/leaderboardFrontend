@@ -1,7 +1,6 @@
 import { useStudentManager } from '@/hooks/student.hook'
 import { mentorDataSelector } from '@/recoil/auth.atom';
 import { StudentsDataSelector } from '@/recoil/student.recoil';
-import { error } from 'console';
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil';
@@ -22,9 +21,9 @@ const StudentTable = ({mentorId}:{mentorId:string}) => {
       if(res.status==200){
         setStudentData(res.data?.data.students);
       }else{
-        throw error("students not found for this mentor");
+        console.log("students not found for this mentor");
       }
-    } catch (error) {
+    } catch (error:any) {
       console.error(error);
     }finally{
       setLoading(false);
