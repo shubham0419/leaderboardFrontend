@@ -5,6 +5,9 @@ import Seo from '@/shared/layout-components/seo/seo'
 import React from 'react'
 
 const Page = () => {
+
+  
+
   return (
     <div>
       <Seo title="dashboard"/>

@@ -41,7 +41,8 @@ declare type User = {
   resume_url?: string ;
   batch_ids: string[];
   section?: string;
-  institute?: string ; 
+  institute?: string ;
+  mentors?: Mentor[]
   mentorship_started?: string; 
   created_at: string; 
   updated_at: string;

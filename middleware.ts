@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get('CBaccessToken')?.value;
 
   const isPublicRoute = publicRoutes.some((route) =>
-    request.nextUrl.pathname.startsWith(route)
+    request.nextUrl.pathname == '/' && request.nextUrl.pathname.startsWith(route)
   );
 
   if (isPublicRoute) {

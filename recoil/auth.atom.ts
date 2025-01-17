@@ -8,7 +8,7 @@ export const userAtom = atom({
 });
 
 // user id getter
-export const userIdSelector = selector<string | undefined >({
+export const studentIdSelector = selector<string | undefined >({
   key: 'getUserId',
   get: ({ get }) => {
     const auth = get(userAtom);
@@ -17,8 +17,8 @@ export const userIdSelector = selector<string | undefined >({
   set:({set},val)=>{
     set(userAtom,prev=>({
       ...prev,
-        userDetails:{
-          ...prev.userDetails,
+        studentDetails:{
+          ...prev.studentDetails,
           _id:val as string
         }
       }
@@ -27,16 +27,16 @@ export const userIdSelector = selector<string | undefined >({
 });
 
 // user data selector
-export const userDataSelector = selector<User | undefined >({
-  key: 'userDataSelector',
+export const studentDataSelector = selector<User | undefined >({
+  key: 'studentDataSelector',
   get: ({ get }) => {
     const auth = get(userAtom);
-    return auth.userDetails ?? undefined;
+    return auth.studentDetails ?? undefined;
   },
   set:({set},val)=>{
     set(userAtom,prev=>({
       ...prev,
-      userDetails:val as User
+      studentDetails:val as User
     }))
   }
 })

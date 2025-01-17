@@ -2,7 +2,7 @@ import { errorResponse, successResponse } from "@/services/responseWrapper";
 import Student from "@/services/student.service";
 
 
-export function useStudentManager(){
+export function UseStudentManager(){
 
   const getStudentByMentor = async(mentorId:string):Promise<StudentByMentorController> =>{
     try {

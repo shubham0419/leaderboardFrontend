@@ -2,7 +2,7 @@
 declare type authAtom = {
   loginform: loginFormType;
   loginOTPRes: loginOTPResType;
-  userDetails: User;
+  studentDetails: User;
   mentorDetails:Mentor
   state:number;
   isAdmin:boolean;

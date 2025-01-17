@@ -1,4 +1,4 @@
-import { useStudentManager } from '@/hooks/student.hook'
+import { UseStudentManager } from '@/hooks/student.hook'
 import { mentorDataSelector } from '@/recoil/auth.atom';
 import { StudentsDataSelector } from '@/recoil/student.recoil';
 import Link from 'next/link'
@@ -8,7 +8,7 @@ import { useRecoilState } from 'recoil';
 
 const StudentTable = ({mentorId}:{mentorId:string}) => {
 
-  const studentManager = useStudentManager();
+  const studentManager = UseStudentManager();
   const [loading,setLoading] = useState(false);
   const [studentData,setStudentData] = useRecoilState(StudentsDataSelector);
   const [mentor,setMentor] = useRecoilState(mentorDataSelector);

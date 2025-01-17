@@ -10,7 +10,5 @@ declare type StudentsbyMentorResTye = {
 declare type StudentByIdResType = {
   status: string;
   message: string;
-  data: {
-    students: User[]
-  };
+  data: User
 };
