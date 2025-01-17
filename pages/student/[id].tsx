@@ -39,7 +39,7 @@ const Page = () => {
       let payload = {oauth_id:oauth_id,year:"2025"}
       let res = await studentManager.getStudentLeetcodeQuestions(payload);
       if(res.status==200){
-        setLeetCodeQusetions(res?.data?.data.problem as ProblemData[]);
+        setLeetCodeQusetions(res?.data?.data.problems as ProblemData[]);
       }else{
         throw {
           message:"Questions not found"

@@ -18,7 +18,7 @@ declare type StudentQuestionResType = {
   status: string;
   message: string;
   data: {
-    problem:ProblemData[]
+    problems:ProblemData[]
   }
 };
 
