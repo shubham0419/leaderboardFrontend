@@ -6,6 +6,7 @@ import Seo from '@/shared/layout-components/seo/seo';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
+import StudentQuestionsTable from '@/components/tabels/StudentQuestionsTable';
 
 const Page = () => {
   const router = useRouter()
@@ -63,6 +64,7 @@ const Page = () => {
     <div className='flex flex-col '>
       <QuestionNumberCard/>
     </div>
+    <StudentQuestionsTable />
   </div>
   )
 }
