@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 
-const publicRoutes = ['/login', '/verify', '/public','/admin/login'];
+const publicRoutes = [ '/','/login', '/verify', '/public','/admin/login'];
 
 export function middleware(request: NextRequest) {
   const token = request.cookies.get('CBaccessToken')?.value;
