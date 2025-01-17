@@ -21,10 +21,21 @@ export default class Student {
     try {
       let res = await axios.get(API_CONSTANTS.studentsByMentor.replace("<MENTOR_ID>",mentorId));
       if (res?.data?.status == "failed") throw res.data.message;
-        return resolve(JSON.parse(JSON.stringify(res.data)) as StudentsbyMentorResTye);
+      return resolve(JSON.parse(JSON.stringify(res.data)) as StudentsbyMentorResTye);
     } catch (error:any) {
       return reject(error);
     }
   })
   }
+
+  static getStudentLeetcodeQuestionsByYear = (payload:StudentProblemPayloadType)=>{
+    return new Promise<StudentQuestionResType>(async (resolve,reject)=>{
+      try {
+        let res = await axios.post(API_CONSTANTS.studentQuestionsByYear,payload);
+        if (res?.data?.status == "failed") throw res.data.message;
+        return resolve(JSON.parse(JSON.stringify(res.data)) as StudentQuestionResType);
+      } catch (error:any) {
+        return reject(error.message);
+      }
+  })}
 }

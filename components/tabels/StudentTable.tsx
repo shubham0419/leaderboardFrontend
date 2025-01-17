@@ -54,7 +54,6 @@ const StudentTable = ({mentorId}:{mentorId:string}) => {
 									<button type="button" className="hs-dropdown-toggle ti-dropdown-toggle rounded-sm p-1 px-3 !border border-gray-200 text-gray-400 hover:text-gray-500 hover:bg-gray-200 hover:border-gray-200 focus:ring-gray-200  dark:hover:bg-black/30 dark:border-white/10 dark:hover:border-white/20 dark:focus:ring-white/10 dark:focus:ring-offset-white/10">View All <i className="ti ti-chevron-down"></i></button>
 									<div className="hs-dropdown-menu ti-dropdown-menu">
 										<Link className="ti-dropdown-item" href="#!">Download</Link>
-										<Link className="ti-dropdown-item" href="#!">Import</Link>
 										<Link className="ti-dropdown-item" href="#!">Export</Link>
 									</div>
 								</div>

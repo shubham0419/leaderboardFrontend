@@ -12,3 +12,7 @@ declare type StudentByMentorController = responseWrapperType & {
 declare type StudentByIdController = responseWrapperType & {
   data?:StudentByIdResType
 }
+
+declare type StudentQuestionsController = responseWrapperType & {
+  data?:StudentQuestionResType
+}

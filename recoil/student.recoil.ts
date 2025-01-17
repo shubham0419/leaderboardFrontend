@@ -57,3 +57,20 @@ export const SelectedStudentSelector = selector<User>({
     })
   }
 })
+
+// student leetcode questions
+export const StudentLeetCodeQuestionsSelector = selector<ProblemData[]>({
+  key: 'StudentLeetCodeQuestionsSelector',
+  get: ({ get }) => {
+    const studentData = get(StudentDataAtom);
+    return studentData.StudentLeetcodeQuestions ?? [];
+  },
+  set: ({ set }, newValue) => {
+    set(StudentDataAtom, prev=>{
+      return {
+        ...prev,
+        StudentLeetcodeQuestions: newValue as ProblemData[]
+      }
+    })
+  }
+})
