@@ -14,7 +14,7 @@ const UploadFile = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    setIsOpen(false);
     const formData = new FormData();
     formData.append("datafiles", file as File);
     formData.append("mentorId","d42587b7-8c41-43e5-9e45-9c3310620da1");
@@ -32,6 +32,7 @@ const UploadFile = () => {
     } catch (err) {
       console.error(err);
     }
+  
   };
 
   return (
@@ -71,7 +72,6 @@ const UploadFile = () => {
               <button
                 type="submit"
                 disabled={name.length < 2}
-                onClick={()=>setIsOpen(false)}
                 className={`px-4 py-2 rounded text-white ${name.length < 2 ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'}`}
               >
                 Upload
