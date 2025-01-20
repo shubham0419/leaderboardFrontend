@@ -1,12 +1,13 @@
-import QuestionNumberCard from '@/components/cards/Questionnumber';
+import QuestionNumberCard from '@/components/cards/QuestionNumber';
 import { UseStudentManager } from '@/hooks/student.hook';
-import { SelectedStudentSelector, StudentLeetCodeQuestionsSelector } from '@/recoil/student.recoil'
+import { SelectedStudentSelector, SelectedYearSelector, StudentLeetCodeQuestionsSelector } from '@/recoil/student.recoil'
 import PageHeader from '@/shared/layout-components/page-header/pageheader';
 import Seo from '@/shared/layout-components/seo/seo';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import StudentQuestionsTable from '@/components/tabels/StudentQuestionsTable';
+import { LeetcodeHistograph } from '@/components/graph/LeetcodeCalender';
 
 const Page = () => {
   const router = useRouter()
@@ -15,6 +16,7 @@ const Page = () => {
   const studentManager = UseStudentManager();
   const setSelectedStudent = useSetRecoilState(SelectedStudentSelector);
   const setLeetCodeQusetions = useSetRecoilState(StudentLeetCodeQuestionsSelector);
+  const selectedYear = useRecoilValue(SelectedYearSelector);
 
   const getStudent = async ()=>{
     try {
@@ -22,7 +24,7 @@ const Page = () => {
       let res = await studentManager.getStudentById(studentId as string);
       if(res.status==200){
         setSelectedStudent(res.data?.data as User);
-        getStudentQuestions(res.data?.data?.oauth_id as string)
+        await getStudentQuestions(res.data?.data?.oauth_id as string)
       }else{
         throw {
           message:"user not found"
@@ -37,7 +39,7 @@ const Page = () => {
 
   const getStudentQuestions = async (oauth_id:string)=>{
     try {
-      let payload = {oauth_id:oauth_id,year:"2025"}
+      let payload = {oauth_id:oauth_id,year:selectedYear}
       let res = await studentManager.getStudentLeetcodeQuestions(payload);
       if(res.status==200){
         setLeetCodeQusetions(res?.data?.data.problems as ProblemData[]);
@@ -55,7 +57,7 @@ const Page = () => {
     if(studentId){
       getStudent();
     }
-  },[studentId])
+  },[studentId,selectedYear])
 
   return (
     <div>
@@ -64,6 +66,7 @@ const Page = () => {
     <div className='flex flex-col '>
       <QuestionNumberCard/>
     </div>
+    <LeetcodeHistograph />
     <StudentQuestionsTable />
   </div>
   )

@@ -53,13 +53,11 @@ const QuestionNumberCard = () => {
                   </h6>
                 </div>
                 <span className={`badge bg-${idx.color}/10 text-${idx.color} py-1 ltr:ml-auto rtl:mr-auto !my-auto`}>
-                  <i className="ti ti-trending-up"></i>
                   {idx.data}
                 </span>
               </div>
               <div className="mt-2">
                 <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">{idx.text}</h2>
-                <p className="text-xs text-gray-400 ">in last week</p>
               </div>
             </div>
           </div>

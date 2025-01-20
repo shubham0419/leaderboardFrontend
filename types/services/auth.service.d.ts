@@ -1,3 +1,5 @@
+
+
 declare type loginOTPResType = {
   status: string;
   message: string;
@@ -32,11 +34,13 @@ declare type User = {
   leetcode_medium?: number;
   leetcode_hard?: number;
   leetcode_contest:LeetcodeContestType[];
+  leetcode_lastSeen:string,
   hackerblock_username?: string;
   codeforces_username?:string,
   codeforces_ranking?:number,
   codeforces_all?:number,
   codeforces_contest?: any[],
+  codeforces_lastseen:Date,
   github?: string;
   resume_url?: string ;
   batch_ids: string[];
@@ -66,7 +70,8 @@ declare type Mentor = {
   id:string,
   name:string,
   email:string,
-  isAdmin:boolean
+  isAdmin:boolean;
+  institute:InstituteType;
   created_at: Date;
   updated_at: Date; 
 }

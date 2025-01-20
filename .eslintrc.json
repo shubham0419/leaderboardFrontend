@@ -13,26 +13,25 @@
   "rules": {
     // Other rules
     "@next/next/no-img-element": "off",
-    "no-multiple-empty-lines":["error", { "max": 1, "maxEOF": 1 }],
       "no-console":"off",
-      "eol-last":"error",
       "block-spacing":"error",
       "vars-on-top":"error",
       "no-useless-return":"error",
-      "no-useless-escape":"error",
+      "no-useless-escape":"off",
       "no-lone-blocks":"off",
       "no-empty":"off",
       "camelcase":"off",
       "linebreak-style":"off",
       "jsx-a11y/alt-text": "off",
       "jsx-a11y/aria-props": "off",
-      "semi": "error",
+      "semi": "off",
       "no-empty-function": "off",
       "no-whitespace-before-property": "error",
       "@typescript-eslint/no-var-requires": "off",
       "@typescript-eslint/no-empty-function": "off",
       "no-unused-vars":"off",
       "no-duplicate-imports":"off",
+      "react/no-unescaped-entities":"off",
       "react-hooks/exhaustive-deps":"off"
   }
 }

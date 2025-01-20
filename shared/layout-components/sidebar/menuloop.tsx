@@ -1,7 +1,10 @@
+import { mentorDataSelector } from "@/recoil/auth.atom";
 import Link from "next/link";
 import { Fragment } from "react";
+import { useRecoilValue } from "recoil";
 
 function Menuloop({ MenuItems, toggleSidemenu, level }: any) {
+  const mentor = useRecoilValue(mentorDataSelector);
 
   return (
     <Fragment>

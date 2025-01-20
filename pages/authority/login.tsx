@@ -4,7 +4,7 @@ import Login from '..';
 import { useSetRecoilState } from 'recoil';
 import { isMentorSelector } from '@/recoil/auth.atom';
 
-const login = () => {
+const LoginMentor = () => {
   const setIsMentor = useSetRecoilState(isMentorSelector);
 
   useEffect(()=>{
@@ -16,4 +16,4 @@ const login = () => {
   )
 }
 
-export default login;
+export default LoginMentor;
