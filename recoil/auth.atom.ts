@@ -120,7 +120,7 @@ export const otpSelector = selector<string>({
 
 // isAdminSelector
 export const isAdminSelector = selector<boolean>({
-  key: 'isAdmin',
+  key: 'isAdminSelector',
   get: ({ get }) => {
     const user = get(userAtom);
     return user.isAdmin ?? false;
@@ -135,7 +135,7 @@ export const isAdminSelector = selector<boolean>({
 
 // isMentor selector
 export const isMentorSelector = selector<boolean>({
-  key: 'isMentor',
+  key: 'isMentorSelector',
   get: ({ get }) => {
     const user = get(userAtom);
     return user.isMentor ?? false;
