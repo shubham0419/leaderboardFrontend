@@ -1,4 +1,4 @@
-import QuestionNumberCard from '@/components/cards/QuestionNumber';
+import QuestionNumberCard from '@/components/cards/Questionnumber';
 import { UseStudentManager } from '@/hooks/student.hook';
 import { SelectedStudentSelector, SelectedYearSelector, StudentLeetCodeQuestionsSelector } from '@/recoil/student.recoil'
 import PageHeader from '@/shared/layout-components/page-header/pageheader';
@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import StudentQuestionsTable from '@/components/tabels/StudentQuestionsTable';
-import { LeetcodeHistograph } from '@/components/graph/LeetcodeCalender';
+import { LeetcodeHistograph } from '@/components/graph/leetcodeCalender';
 
 const Page = () => {
   const router = useRouter()
@@ -63,11 +63,12 @@ const Page = () => {
     <div>
     <Seo title="Profile"/>
     <PageHeader currentpage="Profile"  mainpage="Profile" />
-    <div className='flex flex-col '>
+
+    {loading?"loading...":<div className='flex flex-col '>
       <QuestionNumberCard/>
-    </div>
-    <LeetcodeHistograph />
-    <StudentQuestionsTable />
+      <LeetcodeHistograph />
+      <StudentQuestionsTable />
+    </div>}
   </div>
   )
 }

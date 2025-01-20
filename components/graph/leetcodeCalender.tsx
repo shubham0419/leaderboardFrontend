@@ -23,8 +23,10 @@ const data = [
 export function LeetcodeHistograph() {
   const allQuestions = useRecoilValue(StudentLeetCodeQuestionsSelector);
   const [questionData, setQuestionData] = useState(data);
+  const [loading,setLoading] = useState(false);
 
   const getYearQuestions = () => {
+    setLoading(true);
     let newData = data;
     // @ts-ignore
     let formatedQuestions: [[Date, number]] = [];
@@ -41,6 +43,7 @@ export function LeetcodeHistograph() {
         newData.push(ar);
       })
     setQuestionData(newData);
+    setLoading(false);
   }
 
   useEffect(() => {

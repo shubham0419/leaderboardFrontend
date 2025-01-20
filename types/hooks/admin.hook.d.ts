@@ -7,3 +7,7 @@ declare type addInstituteController = responseWrapperType & {
 declare type addMentorController = responseWrapperType & {
   data?:AddMentorResponseType
 }
+
+declare type getAllInstituteController = responseWrapperType & {
+  data?:getAllInstituteResponseType
+}

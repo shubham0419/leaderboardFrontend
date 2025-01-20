@@ -16,5 +16,6 @@ export default class API_CONSTANTS {
 
   // admin
   static addInstitute = this.BASE_URL+"/institutes/institute/create";
+  static getAllInstitute = this.BASE_URL+"/institutes/all_institutes";
 
 }

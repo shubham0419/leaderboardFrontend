@@ -12,6 +12,15 @@ export function UseAdminManager() {
       }
     }
 
+    const getAllInstitute = async():Promise<getAllInstituteController> =>{
+      try {
+        let res = await Admin.getAllInstitue();
+        return successResponse<typeof res>({ data: res });
+      } catch (error:any) {
+        throw errorResponse({message: error.toString()});
+      }
+    }
+
     const addMentor = async(payload:AddMentorPayload):Promise<addMentorController> =>{
       try {
         let res = await Admin.AddMentor(payload);

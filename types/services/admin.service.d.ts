@@ -29,5 +29,12 @@ declare type InstituteType = {
   year: string[];
   created_at: Date;
   updated_at: Date;
-  mentors: Mentor[];
+};
+
+declare type getAllInstituteResponseType = {
+  status: string;
+  message: string;
+  data: {
+    institutes: InstituteType[]
+  };
 };
