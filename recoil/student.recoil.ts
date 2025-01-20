@@ -4,7 +4,7 @@ import { atom, selector } from "recoil";
 const StudentDataAtom = atom({
   key: 'StudentDataAtom',
   default: {
-
+    selectedYear:"2025"
   } as StudentDataAtomType
 });
 
@@ -53,6 +53,24 @@ export const SelectedStudentSelector = selector<User>({
       return {
         ...prev,
         selectedStudent: newValue as User
+      }
+    })
+  }
+})
+
+
+// selected year selector
+export const SelectedYearSelector = selector<string>({
+  key: 'SelectedYearSelector',
+  get: ({ get }) => {
+    const studentData = get(StudentDataAtom);
+    return studentData.selectedYear ?? undefined;
+  },
+  set: ({ set }, newValue) => {
+    set(StudentDataAtom, prev=>{
+      return {
+        ...prev,
+        selectedYear: newValue as string
       }
     })
   }

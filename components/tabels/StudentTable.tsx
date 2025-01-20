@@ -79,7 +79,7 @@ const StudentTable = ({mentorId}:{mentorId:string}) => {
 									</thead>
 									<tbody className="">
 										{studentData?.map((data) => (
-											<tr className="" key={data.id} onClick={()=>handleStudentClick(data.id)}>
+											<tr className="cursor-pointer" key={data.id} onClick={()=>handleStudentClick(data.id)}>
 												<td>{data?.leetcode_ranking}</td>
 												<td>
 													{data?.name}
