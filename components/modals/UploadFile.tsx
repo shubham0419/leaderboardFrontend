@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { CustomSearchSelect } from '../inputs/SearchSelect';
 
 const UploadFile = () => {
   const [name, setName] = useState("");
@@ -17,7 +18,7 @@ const UploadFile = () => {
     setIsOpen(false);
     const formData = new FormData();
     formData.append("datafiles", file as File);
-    formData.append("mentorId","d42587b7-8c41-43e5-9e45-9c3310620da1");
+    formData.append("mentorId","35e0619a-48c1-4887-98fb-9d7cf7368ae4");
     formData.append("institue","GLA");
 
     try {
@@ -32,8 +33,24 @@ const UploadFile = () => {
     } catch (err) {
       console.error(err);
     }
-  
   };
+
+  const items = [
+    { label: "Apple", id: "fruit-001" },
+    { label: "Banana", id: "fruit-002" },
+    { label: "Cherry", id: "fruit-003" },
+    { label: "Date", id: "fruit-004" },
+    { label: "Elderberry", id: "fruit-005" },
+    { label: "mango", id: "mango-005" },
+    { label: "juice", id: "juice-005" },
+    { label: "pine", id: "pine-005" },
+    { label: "grape", id: "grape-005" },
+    { label: "grape", id: "grape-005" },
+    { label: "grape", id: "grape-005" },
+  ]
+  const handleSelect = (id: string) => {
+    setName(id);
+  }
 
   return (
     <div>
@@ -48,15 +65,7 @@ const UploadFile = () => {
 
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
               <div className="flex flex-col gap-2">
-                <label htmlFor="mentor-name" className="text-sm font-medium text-gray-700">Mentor's Name</label>
-                <input
-                  id="mentor-name"
-                  type="text"
-                  placeholder="Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="border rounded px-3 py-2"
-                />
+                <CustomSearchSelect items={items} onSelect={handleSelect} placeholder="Select a mentor" />
               </div>
 
               <div className="flex flex-col gap-2">

@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import StudentQuestionsTable from '@/components/tabels/StudentQuestionsTable';
 import { LeetcodeHistograph } from '@/components/graph/LeetcodeCalender';
+import { useParams } from 'next/navigation';
 
 const Page = () => {
   const router = useRouter()
@@ -66,7 +67,7 @@ const Page = () => {
     <div className='flex flex-col '>
       <QuestionNumberCard/>
     </div>
-    <LeetcodeHistograph/>
+    <LeetcodeHistograph />
     <StudentQuestionsTable />
   </div>
   )

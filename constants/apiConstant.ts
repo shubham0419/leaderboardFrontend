@@ -12,5 +12,9 @@ export default class API_CONSTANTS {
   static studentQuestionsByYear = this.BASE_URL+"/students/leetcode/stats";
   // mentor
   static mentorById = this.BASE_URL+"/mentors/mentor/<MENTOR_ID>";
+  static instituteAllMentors = this.BASE_URL+"/"
+
+  // admin
+  static addInstitute = this.BASE_URL+"/institutes/institute/create";
 
 }

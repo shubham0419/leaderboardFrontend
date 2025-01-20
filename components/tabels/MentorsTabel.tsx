@@ -1,45 +1,8 @@
-import { UseStudentManager } from '@/hooks/student.hook'
-import { formatReadableDate } from '@/libs/helper';
-import { mentorDataSelector } from '@/recoil/auth.atom';
-import { SelectedStudentSelector, StudentsDataSelector } from '@/recoil/student.recoil';
-import Link from 'next/link'
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import React, { useState } from 'react'
 
-
-const StudentTable = ({mentorId}:{mentorId:string}) => {
-
-  const studentManager = UseStudentManager();
+const MentorsTabel = () => {
   const [loading,setLoading] = useState(false);
-  const [studentData,setStudentData] = useRecoilState(StudentsDataSelector);
-  const [mentor,setMentor] = useRecoilState(mentorDataSelector);
-  const router = useRouter();
-
-  const getStudentDataByMentor = async ()=>{
-    try {
-      setLoading(true);
-      let res = await studentManager.getStudentByMentor(mentorId);
-      if(res.status==200){
-        setStudentData(res.data?.data.students);
-      }else{
-        console.log("students not found for this mentor");
-      }
-    } catch (error:any) {
-      console.error(error);
-    }finally{
-      setLoading(false);
-    }
-  }
-
-  useEffect(()=>{
-    getStudentDataByMentor();
-  },[mentorId]);
-
-
-	const handleStudentClick = (studentId: string) => {
-		router.push(`/student/${studentId}`);
-	}
+  
 
   return (
     <div className="grid grid-cols-12 gap-x-6 pt-2">
@@ -51,10 +14,10 @@ const StudentTable = ({mentorId}:{mentorId:string}) => {
 								<h5 className="box-title my-auto">Students Performance Report</h5>
 								<div className="hs-dropdown ti-dropdown block ltr:ml-auto rtl:mr-auto my-auto">
 									<button type="button" className="hs-dropdown-toggle ti-dropdown-toggle rounded-sm p-1 px-3 !border border-gray-200 text-gray-400 hover:text-gray-500 hover:bg-gray-200 hover:border-gray-200 focus:ring-gray-200  dark:hover:bg-black/30 dark:border-white/10 dark:hover:border-white/20 dark:focus:ring-white/10 dark:focus:ring-offset-white/10">View All <i className="ti ti-chevron-down"></i></button>
-									<div className="hs-dropdown-menu ti-dropdown-menu">
+									{/* <div className="hs-dropdown-menu ti-dropdown-menu">
 										<Link className="ti-dropdown-item" href="#!">Download</Link>
 										<Link className="ti-dropdown-item" href="#!">Export</Link>
-									</div>
+									</div> */}
 								</div>
 							</div>
 						</div>
@@ -71,7 +34,6 @@ const StudentTable = ({mentorId}:{mentorId:string}) => {
 											<th scope="col" className="dark:text-white/80">Leetcode Easy</th>
 											<th scope="col" className="dark:text-white/80">Leetcode Medium</th>
 											<th scope="col" className="dark:text-white/80">Leetcode Hard</th>
-											<th scope="col" className="dark:text-white/80">Leetcode Last Seen</th>
 											<th scope="col" className="dark:text-white/80 ">Total Codeforces Questions</th>
 											<th scope="col" className="dark:text-white/80">Codeforces Ranking</th>
 											<th scope="col" className="dark:text-white/80">Codeforces Contests</th>
@@ -97,9 +59,6 @@ const StudentTable = ({mentorId}:{mentorId:string}) => {
 													{data?.leetcode_hard}
 												</td>
 												<td>
-													{formatReadableDate(data?.leetcode_lastSeen)}
-												</td>
-												<td>
 													{data?.codeforces_all}
 												</td>
 												<td>
@@ -121,4 +80,4 @@ const StudentTable = ({mentorId}:{mentorId:string}) => {
   )
 }
 
-export default StudentTable
+export default MentorsTabel

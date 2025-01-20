@@ -5,6 +5,7 @@ import { useRecoilValue } from "recoil"
 import { useEffect, useState } from "react"
 import { SelectedStudentSelector, StudentLeetCodeQuestionsSelector } from "@/recoil/student.recoil"
 import { UseStudentManager } from "@/hooks/student.hook"
+import { useParams } from "next/navigation"
 
 const data = [
   [
@@ -39,16 +40,12 @@ export function LeetcodeHistograph() {
       // @ts-ignore
         newData.push(ar);
       })
-    console.log(formatedQuestions);
-    console.log("object",newData);
     setQuestionData(newData);
   }
 
   useEffect(() => {
     getYearQuestions();
   }, [allQuestions]);
-
-  console.log(questionData);
 
   return (
     <div className="w-full">

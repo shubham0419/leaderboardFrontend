@@ -2,22 +2,11 @@ import React from 'react'
 import Link from 'next/link'
 import { useRecoilValue } from 'recoil'
 import { StudentLeetCodeQuestionsSelector } from '@/recoil/student.recoil'
+import { formatReadableDate } from '@/libs/helper'
 
 const StudentQuestionsTable = () => {
 
   const problems = useRecoilValue(StudentLeetCodeQuestionsSelector);
-
-  function formatReadableDate(dateString: string): string {
-    const date = new Date(dateString);
-    
-    const options: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    };
-  
-    return date.toLocaleDateString('en-US', options);
-  }
 
   
   return (
