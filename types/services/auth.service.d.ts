@@ -71,7 +71,7 @@ declare type Mentor = {
   name:string,
   email:string,
   isAdmin:boolean;
-  institute:InstituteType;
+  institute:sring;
   created_at: Date;
   updated_at: Date; 
 }

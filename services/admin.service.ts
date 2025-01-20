@@ -13,4 +13,16 @@ export default class Admin {
       }
     });
   };
+
+  static getAllInstitue = ()=>{
+    return new Promise<getAllInstituteResponseType>(async(resolve,reject)=>{
+      try {
+        let res = await axios.get(API_CONSTANTS.getAllInstitute);
+        if(res?.data?.status == "failed") throw res.data.message;
+        return resolve(JSON.parse(JSON.stringify(res.data)) as getAllInstituteResponseType);
+      } catch (error:any) {
+        return reject(error);
+      }
+    })
+  }
 }

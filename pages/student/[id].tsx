@@ -8,7 +8,6 @@ import React, { useEffect, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import StudentQuestionsTable from '@/components/tabels/StudentQuestionsTable';
 import { LeetcodeHistograph } from '@/components/graph/LeetcodeCalender';
-import { useParams } from 'next/navigation';
 
 const Page = () => {
   const router = useRouter()
@@ -25,7 +24,7 @@ const Page = () => {
       let res = await studentManager.getStudentById(studentId as string);
       if(res.status==200){
         setSelectedStudent(res.data?.data as User);
-        getStudentQuestions(res.data?.data?.oauth_id as string)
+        await getStudentQuestions(res.data?.data?.oauth_id as string)
       }else{
         throw {
           message:"user not found"
@@ -64,11 +63,12 @@ const Page = () => {
     <div>
     <Seo title="Profile"/>
     <PageHeader currentpage="Profile"  mainpage="Profile" />
-    <div className='flex flex-col '>
+
+    {loading?"loading...":<div className='flex flex-col '>
       <QuestionNumberCard/>
-    </div>
-    <LeetcodeHistograph />
-    <StudentQuestionsTable />
+      <LeetcodeHistograph />
+      <StudentQuestionsTable />
+    </div>}
   </div>
   )
 }
