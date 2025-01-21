@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CustomSearchSelect } from '../inputs/SearchSelect';
+import { FileUp } from 'lucide-react';
 
 const UploadFile = () => {
   const [name, setName] = useState("");
@@ -18,7 +19,7 @@ const UploadFile = () => {
     setIsOpen(false);
     const formData = new FormData();
     formData.append("datafiles", file as File);
-    formData.append("mentorId","5a172ae4-f917-4807-b899-fa342916f42f");
+    formData.append("mentorId","35e0619a-48c1-4887-98fb-9d7cf7368ae4");
     formData.append("institue","GLA");
 
     try {
@@ -35,28 +36,12 @@ const UploadFile = () => {
     }
   };
 
-  const items = [
-    { label: "Apple", id: "fruit-001" },
-    { label: "Banana", id: "fruit-002" },
-    { label: "Cherry", id: "fruit-003" },
-    { label: "Date", id: "fruit-004" },
-    { label: "Elderberry", id: "fruit-005" },
-    { label: "mango", id: "mango-005" },
-    { label: "juice", id: "juice-005" },
-    { label: "pine", id: "pine-005" },
-    { label: "grape", id: "grape-005" },
-    { label: "grape", id: "grape-005" },
-    { label: "grape", id: "grape-005" },
-  ]
-  const handleSelect = (id: string) => {
-    setName(id);
-  }
 
   return (
     <div>
-      <button onClick={() => setIsOpen(true)} className="bg-blue-500 text-white px-4 py-2 rounded float-right">Upload File</button>
+      <button onClick={() => setIsOpen(true)} className="flex gap-2 bg-[#172c4f] dark:bg-white dark:text-[#172c4f] font-semibold text-white px-4 py-2 rounded-sm float-right"><FileUp/> Upload File</button>
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20 rounded-md">
           <div className="bg-white p-6 rounded shadow-md w-[90%] max-w-md">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-bold">Upload File in XLXS Format</h2>
@@ -65,11 +50,7 @@ const UploadFile = () => {
 
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
               <div className="flex flex-col gap-2">
-                <CustomSearchSelect items={items} onSelect={handleSelect} placeholder="Select a mentor" />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label htmlFor="file" className="text-sm font-medium text-gray-700">Upload File</label>
+                <label htmlFor="file" className="text-sm font-medium text-gray-700">Upload Students File</label>
                 <input
                   id="file"
                   type="file"
@@ -80,8 +61,8 @@ const UploadFile = () => {
 
               <button
                 type="submit"
-                disabled={name.length < 2}
-                className={`px-4 py-2 rounded text-white ${name.length < 2 ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'}`}
+                disabled={!file}
+                className={`px-4 py-2 rounded-md text-white ${!file ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'}`}
               >
                 Upload
               </button>

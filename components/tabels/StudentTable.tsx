@@ -6,7 +6,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil';
-
+import { Loader } from '../Loader';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSort } from '@fortawesome/free-solid-svg-icons';
 
 const StudentTable = ({mentorId}:{mentorId:string}) => {
 
@@ -43,7 +45,7 @@ const StudentTable = ({mentorId}:{mentorId:string}) => {
 
   return (
     <div className="grid grid-cols-12 gap-x-6 pt-2">
-      {loading? <div className='flex justify-center items-center bg-gray-400'>Loading...</div>:
+      {loading? <div className='flex justify-center items-center bg-gray-400'><Loader/></div>:
 				<div className="col-span-12">
 					<div className="box">
 						<div className="box-header">
@@ -61,20 +63,133 @@ const StudentTable = ({mentorId}:{mentorId:string}) => {
 						<div className="box-body">
 							<div className="overflow-auto">
 								<table className="ti-custom-table ti-custom-table-head whitespace-nowrap table-bordered rounded-sm ti-custom-table-head ">
-									<thead className="bg-gray-50 dark:bg-black/20">
+									<thead className="bg-gray-300 dark:bg-black/20">
 										<tr className="">
-											<th scope="col" className="dark:text-white/80">Rank</th>
-											<th scope="col" className="dark:text-white/80">Name</th>
-											<th scope="col" className="dark:text-white/80">University</th>
-                      <th scope="col" className="dark:text-white/80">Leetcode Contests</th>
-                      <th scope="col" className="dark:text-white/80">Total LeetCode Questions</th>
-											<th scope="col" className="dark:text-white/80">Leetcode Easy</th>
-											<th scope="col" className="dark:text-white/80">Leetcode Medium</th>
-											<th scope="col" className="dark:text-white/80">Leetcode Hard</th>
-											<th scope="col" className="dark:text-white/80">Leetcode Last Seen</th>
-											<th scope="col" className="dark:text-white/80 ">Total Codeforces Questions</th>
-											<th scope="col" className="dark:text-white/80">Codeforces Ranking</th>
-											<th scope="col" className="dark:text-white/80">Codeforces Contests</th>
+											<th scope="col" className="text-black dark:text-white/80">
+												<div className="flex gap-1 items-center">
+														<span className="cursor-pointer">Rank</span>
+														<div className="flex gap-0 items-center">
+																<button className="p-2" >
+																		{/* <FontAwesomeIcon icon={(customerTableParams?.sortBy != "anniversary" || customerTableParams?.sortOrder == undefined) ? faSort : (customerTableParams?.sortOrder == "desc") ? faSortUp : faSortDown} size={"lg"}/> */}
+																		<FontAwesomeIcon icon={faSort}/>
+																</button> 
+														</div>
+												</div></th>
+											<th scope="col" className="text-black dark:text-white/80">
+												<div className="flex gap-1 items-center">
+													<span className="cursor-pointer">Name</span>
+													<div className="flex gap-0 items-center">
+															<button className="p-2" >
+																	{/* <FontAwesomeIcon icon={(customerTableParams?.sortBy != "anniversary" || customerTableParams?.sortOrder == undefined) ? faSort : (customerTableParams?.sortOrder == "desc") ? faSortUp : faSortDown} size={"lg"}/> */}
+																	<FontAwesomeIcon icon={faSort}/>
+															</button> 
+													</div>
+											</div>
+											</th>
+											<th scope="col" className="text-black dark:text-white/80">University</th>
+                      <th scope="col" className="text-black dark:text-white/80">
+											<div className="flex gap-1 items-center">
+													<span className="cursor-pointer">Leetcode Contests</span>
+													<div className="flex gap-0 items-center">
+															<button className="p-2" >
+																	{/* <FontAwesomeIcon icon={(customerTableParams?.sortBy != "anniversary" || customerTableParams?.sortOrder == undefined) ? faSort : (customerTableParams?.sortOrder == "desc") ? faSortUp : faSortDown} size={"lg"}/> */}
+																	<FontAwesomeIcon icon={faSort}/>
+															</button> 
+													</div>
+											</div></th>
+                      <th scope="col" className="text-black dark:text-white/80">	<div className="flex gap-1 items-center">
+													<span className="cursor-pointer">Total LeetCode Questions</span>
+													<div className="flex gap-0 items-center">
+															<button className="p-2" >
+																	{/* <FontAwesomeIcon icon={(customerTableParams?.sortBy != "anniversary" || customerTableParams?.sortOrder == undefined) ? faSort : (customerTableParams?.sortOrder == "desc") ? faSortUp : faSortDown} size={"lg"}/> */}
+																	<FontAwesomeIcon icon={faSort}/>
+															</button> 
+													</div>
+											</div></th>
+												<th scope="col" className="text-black dark:text-white/80">
+												<div className="flex gap-1 items-center">
+														<span className="cursor-pointer">Leetcode Easy</span>
+														<div className="flex gap-0 items-center">
+																<button className="p-2" >
+																		{/* <FontAwesomeIcon icon={(customerTableParams?.sortBy != "anniversary" || customerTableParams?.sortOrder == undefined) ? faSort : (customerTableParams?.sortOrder == "desc") ? faSortUp : faSortDown} size={"lg"}/> */}
+																		<FontAwesomeIcon icon={faSort}/>
+																</button> 
+														</div>
+												</div></th>
+											<th scope="col" className="text-black dark:text-white/80">
+											
+											<div className="flex gap-1 items-center">
+														<span className="cursor-pointer">Leetcode Medium</span>
+														<div className="flex gap-0 items-center">
+																<button className="p-2" >
+																		{/* <FontAwesomeIcon icon={(customerTableParams?.sortBy != "anniversary" || customerTableParams?.sortOrder == undefined) ? faSort : (customerTableParams?.sortOrder == "desc") ? faSortUp : faSortDown} size={"lg"}/> */}
+																		<FontAwesomeIcon icon={faSort}/>
+																</button> 
+														</div>
+												</div></th>
+											<th scope="col" className="text-black dark:text-white/80">
+											
+											<div className="flex gap-1 items-center">
+														<span className="cursor-pointer">Leetcode Hard</span>
+														<div className="flex gap-0 items-center">
+																<button className="p-2" >
+																		{/* <FontAwesomeIcon icon={(customerTableParams?.sortBy != "anniversary" || customerTableParams?.sortOrder == undefined) ? faSort : (customerTableParams?.sortOrder == "desc") ? faSortUp : faSortDown} size={"lg"}/> */}
+																		<FontAwesomeIcon icon={faSort}/>
+																</button> 
+														</div>
+												</div></th>
+											<th scope="col" className="text-black dark:text-white/80">
+											
+											<div className="flex gap-1 items-center">
+														<span className="cursor-pointer">Leetcode Last Seen</span>
+														<div className="flex gap-0 items-center">
+																<button className="p-2" >
+																		{/* <FontAwesomeIcon icon={(customerTableParams?.sortBy != "anniversary" || customerTableParams?.sortOrder == undefined) ? faSort : (customerTableParams?.sortOrder == "desc") ? faSortUp : faSortDown} size={"lg"}/> */}
+																		<FontAwesomeIcon icon={faSort}/>
+																</button> 
+														</div>
+												</div></th>
+											<th scope="col" className="text-black dark:text-white/80 ">
+											
+											<div className="flex gap-1 items-center">
+														<span className="cursor-pointer">Total Codeforces Questions</span>
+														<div className="flex gap-0 items-center">
+																<button className="p-2" >
+																		{/* <FontAwesomeIcon icon={(customerTableParams?.sortBy != "anniversary" || customerTableParams?.sortOrder == undefined) ? faSort : (customerTableParams?.sortOrder == "desc") ? faSortUp : faSortDown} size={"lg"}/> */}
+																		<FontAwesomeIcon icon={faSort}/>
+																</button> 
+														</div>
+												</div></th>
+											<th scope="col" className="text-black dark:text-white/80">
+											<div className="flex gap-1 items-center">
+														<span className="cursor-pointer">Codeforces Ranking</span>
+														<div className="flex gap-0 items-center">
+																<button className="p-2" >
+																		{/* <FontAwesomeIcon icon={(customerTableParams?.sortBy != "anniversary" || customerTableParams?.sortOrder == undefined) ? faSort : (customerTableParams?.sortOrder == "desc") ? faSortUp : faSortDown} size={"lg"}/> */}
+																		<FontAwesomeIcon icon={faSort}/>
+																</button> 
+														</div>
+												</div></th>
+											<th scope="col" className="text-black dark:text-white/80">
+											<div className="flex gap-1 items-center">
+														<span className="cursor-pointer">Codeforces Contests</span>
+														<div className="flex gap-0 items-center">
+																<button className="p-2" >
+																		{/* <FontAwesomeIcon icon={(customerTableParams?.sortBy != "anniversary" || customerTableParams?.sortOrder == undefined) ? faSort : (customerTableParams?.sortOrder == "desc") ? faSortUp : faSortDown} size={"lg"}/> */}
+																		<FontAwesomeIcon icon={faSort}/>
+																</button> 
+														</div>
+												</div></th>
+											<th scope="col" className="text-black dark:text-white/80">
+											<div className="flex gap-1 items-center">
+														<span className="cursor-pointer">Codeforces Last Seen</span>
+														<div className="flex gap-0 items-center">
+																<button className="p-2" >
+																		{/* <FontAwesomeIcon icon={(customerTableParams?.sortBy != "anniversary" || customerTableParams?.sortOrder == undefined) ? faSort : (customerTableParams?.sortOrder == "desc") ? faSortUp : faSortDown} size={"lg"}/> */}
+																		<FontAwesomeIcon icon={faSort}/>
+																</button> 
+														</div>
+												</div></th>
 										</tr>
 									</thead>
 									<tbody className="">
@@ -107,6 +222,9 @@ const StudentTable = ({mentorId}:{mentorId:string}) => {
 												</td>
 												<td>
 													{data?.codeforces_contest?.length || 0}
+												</td>
+												<td>
+													{formatReadableDate(data?.codeforces_lastSeen)}
 												</td>
 											</tr>
 										))}

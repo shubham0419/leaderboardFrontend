@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CustomSearchSelect } from '../inputs/SearchSelect';
 import { BadgePlus, X } from 'lucide-react';
 import { UseAdminManager } from '@/hooks/admin.hook';
+import { useRecoilValue } from 'recoil';
+import { allInstituteSelector } from '@/recoil/admin.atom';
 
 const AddMentorDialog = () => {
   const [name, setName] = useState("");
   const [instituteId , setInstituteId] = useState("");
   const [email,setEmail] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const adminManager = UseAdminManager()
+  const adminManager = UseAdminManager();
+  const allInstitutes = useRecoilValue(allInstituteSelector);
+  const [formatedInstitues,setFormatedInstitutes] = useState<{
+    label: string;
+    id: string;
+}[]>([]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -20,13 +27,26 @@ const AddMentorDialog = () => {
       }
       const res = await adminManager.addMentor(payload);
       if(res.status==200){
-        alert("Mentor Added Successfully");
         setIsOpen(false);
+        alert("Mentor Added Successfully");
       }
     } catch (error:any) {
       alert(error.message);
     }
   };
+
+  useEffect(()=>{
+    const formatData = allInstitutes.map((inst)=>({
+      label:inst.name,
+      id:inst.id
+    }));
+    setFormatedInstitutes(formatData)
+  },[allInstitutes])
+
+
+  const handleSelect = (id: string) => {
+    setInstituteId(id);
+  }
 
   return (
     <div >
@@ -49,8 +69,7 @@ const AddMentorDialog = () => {
                 <input id='intitute_name' type='email' className='rounded-md' placeholder='Enter Email' onChange={(e)=>setEmail(e.target.value)} />
               </div>
               <div className="flex flex-col gap-2">
-                <label htmlFor="intitute_name" className="text-sm font-medium text-gray-700">Institute ID</label>
-                <input id='intitute_name' type='text' className='rounded-md' placeholder='Enter Location' onChange={(e)=>setInstituteId(e.target.value)} />
+                <CustomSearchSelect items={formatedInstitues} onSelect={handleSelect} />
               </div>
               <button
                 type="submit"

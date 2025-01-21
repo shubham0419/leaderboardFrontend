@@ -31,5 +31,13 @@ export function UseStudentManager(){
     }
   }
 
-  return { getStudentByMentor,getStudentById ,getStudentLeetcodeQuestions}
+  const getCodeforcescodeQuestions = async(payload:StudentProblemPayloadType):Promise<StudentCFQuestionsController>=>{
+    try {
+      let res = await Student.getStudentCodeforcesQuestionsByYear(payload);
+      return successResponse<typeof res>({ data: res });
+    } catch (error:any) {
+      return errorResponse({message: error.toString()})
+    }
+  }
+  return { getStudentByMentor,getStudentById ,getStudentLeetcodeQuestions,getCodeforcescodeQuestions}
 }

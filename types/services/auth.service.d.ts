@@ -40,7 +40,7 @@ declare type User = {
   codeforces_ranking?:number,
   codeforces_all?:number,
   codeforces_contest?: any[],
-  codeforces_lastseen:Date,
+  codeforces_lastSeen:string,
   github?: string;
   resume_url?: string ;
   batch_ids: string[];
@@ -80,8 +80,6 @@ declare type AuthResponse = {
   user: User | Mentor;
   accessToken: string;
 };
-
-
 
 declare type verifyUserPayload = {
   userId: string;

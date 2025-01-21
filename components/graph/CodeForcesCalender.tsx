@@ -3,7 +3,7 @@ import { LeetcodeQuestionsSelector } from "@/recoil/leetcode.atom"
 import { Chart } from "react-google-charts"
 import { useRecoilValue } from "recoil"
 import { useEffect, useState } from "react"
-import { SelectedStudentSelector, StudentLeetCodeQuestionsSelector } from "@/recoil/student.recoil"
+import { SelectedStudentSelector, StudentCodeforcesQuestionsSelector, StudentLeetCodeQuestionsSelector } from "@/recoil/student.recoil"
 import { Loader } from "../Loader"
 
 const data = [
@@ -19,8 +19,8 @@ const data = [
   ],
 ];
 
-export function LeetcodeHistograph() {
-  const allQuestions = useRecoilValue(StudentLeetCodeQuestionsSelector);
+export function CodeforcesCalander() {
+  const allQuestions = useRecoilValue(StudentCodeforcesQuestionsSelector);
   const [questionData, setQuestionData] = useState(data);
   const [loading,setLoading] = useState(false);
 
@@ -54,12 +54,11 @@ export function LeetcodeHistograph() {
       {loading?<Loader/>:<>
       <div className={("flex  items-stretch space-y-0 border-b p-0 md:flex-row md:justify-between px-6 py-5 sm:py-6")}>
         <div className="flex flex-1 flex-col justify-center gap-1  ">
-          <div className="text-lg">Leetcode Questions Calender</div>
+          <div className="text-lg">Codeforces Questions Calender</div>
         </div>
       </div>
       <div className="px-2 sm:p-6 w-full overflow-auto scrollbar-hide">
         <div className="w-full whitespace-nowrap rounded-md border py-5 ps-2">
-
           <div className="w-[230vw] md:w-[120vw] lg:w-[86vw] 2xl:w-[80%]">
             <Chart
               chartType="Calendar"
@@ -70,7 +69,7 @@ export function LeetcodeHistograph() {
           </div>
         </div>
       </div>
-    </>}
+      </>}
     </div>
   )
 }

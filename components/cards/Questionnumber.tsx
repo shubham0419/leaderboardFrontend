@@ -2,67 +2,99 @@ import { SelectedStudentSelector } from '@/recoil/student.recoil'
 import React from 'react'
 import { useRecoilValue } from 'recoil'
 
-type Questionstype ={
-    class:string,
-    data:string,
-    text:string,
-    color:string
+type Questionstype = {
+  class: string,
+  data: string,
+  text: string,
+  color: string
 }
 
 const QuestionNumberCard = () => {
 
   const selectedStudent = useRecoilValue(SelectedStudentSelector);
 
-  const questions:Questionstype[] = [
+  const questions: Questionstype[] = [
     {
-      class:"Total Solved",
-      data:"",
-      text:selectedStudent?.leetcode_all?.toFixed(0) || "0",
-      color:"primary"
+      class: "Leetcode Total Solved",
+      data: "",
+      text: selectedStudent?.leetcode_all?.toFixed(0) || "0",
+      color: "gray"
     },
     {
-      class:"Easy Solved",
-      data:"",
-      text:selectedStudent?.leetcode_easy?.toFixed(0) || "0",
-      color:"success"
+      class: "Leetcode Easy Solved",
+      data: "",
+      text: selectedStudent?.leetcode_easy?.toFixed(0) || "0",
+      color: "green"
     },
     {
-      class:"Medium Solved",
-      data:"",
-      text:selectedStudent?.leetcode_medium?.toFixed(0) || "0",
-      color:"warning"
+      class: "Leetcode Medium Solved",
+      data: "",
+      text: selectedStudent?.leetcode_medium?.toFixed(0) || "0",
+      color: "yellow"
     },
     {
-      class:"Hard Solved",
-      data:"",
-      text:selectedStudent?.leetcode_hard?.toFixed(0) || "0",
-      color:"danger"
+      class: "Leetcode Hard Solved",
+      data: "",
+      text: selectedStudent?.leetcode_hard?.toFixed(0) || "0",
+      color: "red"
     },
   ];
 
   return (
     <div className="grid grid-cols-12 gap-x-5">
       {questions.map((idx) => (
-        <div className="col-span-12 md:col-span-6 xxl:col-span-3" key={Math.random()}>
-          <div className="box overflow-hidden">
+        <div className="col-span-12 md:col-span-6 xxl:col-span-3 " key={Math.random()}>
+          <div className={`box overflow-hidden border-2 border-${idx.color}-500`}>
             <div className="box-body">
               <div className="flex">
                 <div className="flex space-x-3 rtl:space-x-reverse">
-                  <h6 className="text-lg font-medium text-gray-800 mb-2 dark:text-white my-auto">
+                  <h6 className={`text-base font-medium text-${idx.color}-500 mb-2 dark:text-white my-auto`}>
                     {idx.class}
                   </h6>
                 </div>
-                <span className={`badge bg-${idx.color}/10 text-${idx.color} py-1 ltr:ml-auto rtl:mr-auto !my-auto`}>
+                <span className={`badge bg-${idx.color}/10 text-${idx.color}-500 py-1 ltr:ml-auto rtl:mr-auto !my-auto`}>
                   {idx.data}
                 </span>
               </div>
               <div className="mt-2">
-                <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">{idx.text}</h2>
+                <h2 className={`text-2xl font-semibold text-${idx.color}-500 dark:text-white`}>{idx.text}</h2>
               </div>
             </div>
           </div>
         </div>
       ))}
+      {selectedStudent?.codeforces_all && <div className="col-span-12 md:col-span-6 xxl:col-span-3 ">
+        <div className={`box overflow-hidden border-2 border-violet-900`}>
+          <div className="box-body">
+            <div className="flex">
+              <div className="flex space-x-3 rtl:space-x-reverse">
+                <h6 className={`text-base font-medium text-violet-500 mb-2 dark:text-white my-auto`}>
+                  Codeforces All Questions
+                </h6>
+              </div>
+            </div>
+            <div className="mt-2">
+              <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">{selectedStudent?.codeforces_all}</h2>
+            </div>
+          </div>
+        </div>
+      </div>}
+      {selectedStudent?.codeforces_ranking && <div className="col-span-12 md:col-span-6 xxl:col-span-3 ">
+        <div className={`box overflow-hidden border-2 border-blue-500`}>
+          <div className="box-body">
+            <div className="flex">
+              <div className="flex space-x-3 rtl:space-x-reverse">
+                <h6 className={`text-base font-medium text-blue-500 mb-2 dark:text-white my-auto`}>
+                  Codeforces Rating
+                </h6>
+              </div>
+            </div>
+            <div className="mt-2">
+              <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">{selectedStudent?.codeforces_ranking}</h2>
+            </div>
+          </div>
+        </div>
+      </div>}
     </div>
   )
 }

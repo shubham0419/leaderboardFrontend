@@ -1,13 +1,7 @@
 
-
-
-
 declare type StudentByMentorController = responseWrapperType & {
   data?:StudentsbyMentorResTye
 }
-
-
-
 
 declare type StudentByIdController = responseWrapperType & {
   data?:StudentByIdResType
@@ -15,4 +9,8 @@ declare type StudentByIdController = responseWrapperType & {
 
 declare type StudentQuestionsController = responseWrapperType & {
   data?:StudentQuestionResType
+}
+
+declare type StudentCFQuestionsController = responseWrapperType & {
+  data?:CodeforcesQuestionResType
 }

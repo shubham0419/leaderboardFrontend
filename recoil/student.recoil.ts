@@ -77,7 +77,7 @@ export const SelectedYearSelector = selector<string>({
 })
 
 // student leetcode questions
-export const StudentLeetCodeQuestionsSelector = selector<ProblemData[]>({
+export const StudentLeetCodeQuestionsSelector = selector<LeetcodeProblemDataType[]>({
   key: 'StudentLeetCodeQuestionsSelector',
   get: ({ get }) => {
     const studentData = get(StudentDataAtom);
@@ -87,7 +87,24 @@ export const StudentLeetCodeQuestionsSelector = selector<ProblemData[]>({
     set(StudentDataAtom, prev=>{
       return {
         ...prev,
-        StudentLeetcodeQuestions: newValue as ProblemData[]
+        StudentLeetcodeQuestions: newValue as LeetcodeProblemDataType[]
+      }
+    })
+  }
+})
+
+// student Codeforces questions
+export const StudentCodeforcesQuestionsSelector = selector<CodeforcesProfile[]>({
+  key: 'StudentCodeforcesQuestionsSelector',
+  get: ({ get }) => {
+    const studentData = get(StudentDataAtom);
+    return studentData.StudentCodeforcesQuestions ?? [];
+  },
+  set: ({ set }, newValue) => {
+    set(StudentDataAtom, prev=>{
+      return {
+        ...prev,
+        StudentCodeforcesQuestions: newValue as CodeforcesProfile[]
       }
     })
   }

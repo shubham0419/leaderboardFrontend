@@ -38,4 +38,15 @@ export default class Student {
         return reject(error.message);
       }
   })}
+
+  static getStudentCodeforcesQuestionsByYear = (payload:StudentProblemPayloadType)=>{
+    return new Promise<CodeforcesQuestionResType>(async (resolve,reject)=>{
+      try {
+        let res = await axios.post(API_CONSTANTS.studentCFQuestionsByYear,payload);
+        if (res?.data?.status == "failed") throw res.data.message;
+        return resolve(JSON.parse(JSON.stringify(res.data)) as CodeforcesQuestionResType);
+      } catch (error:any) {
+        return reject(error.message);
+      }
+  })}
 }

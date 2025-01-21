@@ -30,7 +30,7 @@ export default class Admin {
   static AddMentor = (payload:AddMentorPayload) => {
     return new Promise<AddMentorResponseType>(async (resolve, reject) => {
       try {
-        const res = await axios.post(API_CONSTANTS.addInstitute,payload);
+        const res = await axios.post(API_CONSTANTS.addMentor,payload);
         if (res?.data?.status == "failed") throw res.data.message;
         return resolve(JSON.parse(JSON.stringify(res.data)) as AddMentorResponseType);
       } catch (error: any) {

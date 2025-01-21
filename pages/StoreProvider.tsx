@@ -5,7 +5,9 @@ import { UseStudentManager } from '@/hooks/student.hook';
 import { UseMentorManager } from '@/hooks/mentor.hook';
 import { mentorDataSelector, studentDataSelector } from '@/recoil/auth.atom';
 import dynamic from 'next/dynamic';
-
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+library.add(fas);
 
 const InnerChildren = dynamic(() => Promise.resolve(({ children }: { children: React.ReactNode }) => {
   const isMentor = Cookies.get("mentor");

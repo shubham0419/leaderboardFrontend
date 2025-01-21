@@ -7,7 +7,7 @@ const PageHeader = (props :any) => {
 	return (
 		<div className="block justify-between page-header md:flex">
 			<div>
-				<h3 className="text-gray-700 hover:text-gray-900 dark:text-white dark:hover:text-white text-2xl font-medium">{props.currentpage}</h3>
+				<h3 className="text-gray-700 hover:text-gray-900 dark:text-white dark:hover:text-white text-2xl font-medium capitalize">{props.currentpage}</h3>
 			</div>
 			<ol className="flex items-center whitespace-nowrap min-w-0">
 				<li className="text-sm">

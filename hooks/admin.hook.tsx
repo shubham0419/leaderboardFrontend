@@ -30,5 +30,5 @@ export function UseAdminManager() {
       }
     }
   
-    return {addInstitute, addMentor}
+    return {addInstitute, addMentor,getAllInstitute}
 }

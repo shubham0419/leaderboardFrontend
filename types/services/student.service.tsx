@@ -18,11 +18,11 @@ declare type StudentQuestionResType = {
   status: string;
   message: string;
   data: {
-    problems:ProblemData[]
+    problems:LeetcodeProblemDataType[]
   }
 };
 
-declare type ProblemData = {
+declare type LeetcodeProblemDataType = {
   id: string;
   leetcode_username: string;
   oauth_id: string;
@@ -40,3 +40,29 @@ declare type StudentProblemPayloadType = {
   oauth_id:string,
   year:string
 }
+
+
+declare type CodeforcesQuestionResType = {
+  status: string;
+  message: string;
+  data: {
+    problems:CodeforcesProfile[]
+  }
+};
+
+declare type CodeforcesProfile = {
+  id: string;
+  codeforces_username: string;
+  oauth_id: string;
+  codeforces_profile_url: string;
+  problem_rating: number;
+  problem_name: string;
+  problem_status: boolean;
+  problem_date: string;
+  contestId: number;
+  index: string;
+  sync_date: string;
+  sync_status: boolean;
+  created_at: string;
+  updated_at: string;
+};

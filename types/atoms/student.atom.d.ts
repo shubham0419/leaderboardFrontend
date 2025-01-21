@@ -5,5 +5,6 @@ declare type StudentDataAtomType = {
   mentor:Mentor
   selectedStudent:User;
   selectedYear:string
-  StudentLeetcodeQuestions:ProblemData[]
+  StudentLeetcodeQuestions:LeetcodeProblemDataType[],
+  StudentCodeforcesQuestions:CodeforcesProfile[]
 }

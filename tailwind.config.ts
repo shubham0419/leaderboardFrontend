@@ -89,6 +89,7 @@ module.exports = {
       },
     },
     animation: {
+      spinfast: "spin 0.5s linear infinite",
       projects: "particles 2s linear infinite",
       spin: "spin 1s linear infinite;",
       ping: "ping 1s cubic-bezier(0, 0, 0.2, 1) infinite",

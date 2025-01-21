@@ -15,10 +15,10 @@ export const MenuItems: any = [
 
 	{
 		id: 2, icon: Dashboardsvg, title: "Dashboard", type: "sub", active: false, selected: false, children: [
-
-			{ id: 3, path: "/components/dashboard/sales", type: "link", active: false, selected: false, title: "Sales" },
-			{ id: 4, path: "/admin/addmentor", type: "link", active: false, selected: false, title: "Add Mentor" },
-			{ id: 5, path: "/admin/institue", type: "link", active: false, selected: false, title: "Add Institue" },
+			{ id: 3, path: "/dashboard/page", type: "link", active: false, selected: false, title: "All Student" },
+			{ id: 4, path: "/components/dashboard/sales", type: "link", active: false, selected: false, title: "Sales" },
+			{ id: 5, path: "/admin/addmentor", type: "link", active: false, selected: false, title: "Add Mentor" },
+			{ id: 6, path: "/admin/institue", type: "link", active: false, selected: false, title: "Add Institue" },
 		],
 	},
 	// {

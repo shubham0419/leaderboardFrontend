@@ -1,13 +1,44 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRecoilValue } from 'recoil'
-import { StudentLeetCodeQuestionsSelector } from '@/recoil/student.recoil'
+import { StudentCodeforcesQuestionsSelector, StudentLeetCodeQuestionsSelector } from '@/recoil/student.recoil'
 import { formatReadableDate } from '@/libs/helper'
 
+type problemDataType = {
+  id:string,
+  problem_date:string,
+  problem_name:string,
+  problem_status:boolean
+}
+
 const StudentQuestionsTable = () => {
+  const [selectedSource, setSelectedSource] = useState("all")
 
-  const problems = useRecoilValue(StudentLeetCodeQuestionsSelector);
+  const leetcodeProblems = useRecoilValue(StudentLeetCodeQuestionsSelector);
+  const codeforcesProblems = useRecoilValue(StudentCodeforcesQuestionsSelector);
+  const allProblems:problemDataType[] = leetcodeProblems.map((lc)=>({
+    id:lc.id,
+    problem_name:lc.problem_name,
+    problem_status:lc.problem_status,
+    problem_date:lc.problem_date
+  })).concat(codeforcesProblems.map(cf=>({
+    id:cf.id,
+    problem_name:cf.problem_name,
+    problem_status:cf.problem_status,
+    problem_date:cf.problem_date,
+  }))).sort((a, b) => {
+    const dateA = new Date(a.problem_date);
+    const dateB = new Date(b.problem_date);
+    return dateA.getTime() - dateB.getTime();
+  });
 
+  const [problemsToShow,setProblemToShow] = useState<problemDataType[]>(allProblems);
+
+  useEffect(()=>{
+    if(selectedSource=="all") setProblemToShow(allProblems);
+    else if(selectedSource=="leetcode") setProblemToShow(leetcodeProblems);
+    else setProblemToShow(codeforcesProblems);
+  },[selectedSource])
   
   return (
     <div className="grid grid-cols-12 gap-x-6 pt-2">
@@ -15,14 +46,16 @@ const StudentQuestionsTable = () => {
         <div className="box">
           <div className="box-header">
             <div className="flex">
-              <h5 className="box-title my-auto">All Leetcode Questions Details</h5>
-              <div className="hs-dropdown ti-dropdown block ltr:ml-auto rtl:mr-auto my-auto">
-                <button type="button" className="hs-dropdown-toggle ti-dropdown-toggle rounded-sm p-1 px-3 !border border-gray-200 text-gray-400 hover:text-gray-500 hover:bg-gray-200 hover:border-gray-200 focus:ring-gray-200  dark:hover:bg-black/30 dark:border-white/10 dark:hover:border-white/20 dark:focus:ring-white/10 dark:focus:ring-offset-white/10">View All <i className="ti ti-chevron-down"></i></button>
-                <div className="hs-dropdown-menu ti-dropdown-menu">
-                  <Link className="ti-dropdown-item" href="#!">Download</Link>
-                  <Link className="ti-dropdown-item" href="#!">Export</Link>
-                </div>
-              </div>
+              <h5 className="box-title my-auto">All Questions Details</h5>
+              <select
+                value={selectedSource}
+                onChange={(e) => setSelectedSource(e.target.value)}
+                className="rounded-sm p-1 px-2 pe-8 border border-gray-200 text-gray-400 hover:text-gray-500 hover:bg-gray-200 hover:border-gray-200 focus:ring-gray-200 dark:hover:bg-black/30 dark:border-white/10 dark:hover:border-white/20 dark:focus:ring-white/10 dark:focus:ring-offset-white/10"
+              >
+                <option value="all">View All</option>
+                <option value="leetcode">Leetcode</option>
+                <option value="codeforces">Codeforces</option>
+              </select>
             </div>
           </div>
           <div className="box-body">
@@ -36,16 +69,13 @@ const StudentQuestionsTable = () => {
                   </tr>
                 </thead>
                 <tbody className="">
-                  {problems?.map((data) => (
+                  {problemsToShow?.map((data) => (
                     <tr className="text-gray-500 dark:text-white/50" key={data.id}>
                       <td className="text-gray-500 dark:text-white/50">{data?.problem_name}</td>
-
                       <td className={data?.problem_status?"text-green-500" : "text-red-500"}>
                         {data?.problem_status ? "Accepted" : "Failed"}
                       </td>
-
                       <td className="text-gray-500 font-semibold text-base dark:text-white/50">{formatReadableDate(data?.problem_date)}</td>
-                      
                     </tr>
                   ))}
                 </tbody>
