@@ -2,24 +2,35 @@ declare type StudentsbyMentorResTye = {
   status: string;
   message: string;
   data: {
-    mentor:Mentor,
-    students: User[]
+    mentor: Mentor;
+    students: User[];
+    pagination: StudentPagenationResType
   };
+};
+
+declare type StudentPagenationResType ={
+  currentPage: number;
+  totalPages: number;
+  totalStudents: number;
+  limit: number;
+}
+
+declare type StudentsbyMentorParamsTye = {
+  params: studentFilterType;
 };
 
 declare type StudentByIdResType = {
   status: string;
   message: string;
-  data: User
+  data: User;
 };
-
 
 declare type StudentQuestionResType = {
   status: string;
   message: string;
   data: {
-    problems:LeetcodeProblemDataType[]
-  }
+    problems: LeetcodeProblemDataType[];
+  };
 };
 
 declare type LeetcodeProblemDataType = {
@@ -29,25 +40,24 @@ declare type LeetcodeProblemDataType = {
   leetcode_profile_url: string;
   problem_name: string;
   problem_status: boolean;
-  problem_date: string; 
-  sync_date: string; 
+  problem_date: string;
+  sync_date: string;
   sync_status: boolean;
-  created_at: string; 
-  updated_at: string; 
+  created_at: string;
+  updated_at: string;
 };
 
 declare type StudentProblemPayloadType = {
-  oauth_id:string,
-  year:string
-}
-
+  oauth_id: string;
+  year: string;
+};
 
 declare type CodeforcesQuestionResType = {
   status: string;
   message: string;
   data: {
-    problems:CodeforcesProfile[]
-  }
+    problems: CodeforcesProfile[];
+  };
 };
 
 declare type CodeforcesProfile = {

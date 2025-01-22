@@ -4,9 +4,9 @@ import Student from "@/services/student.service";
 
 export function UseStudentManager(){
 
-  const getStudentByMentor = async(mentorId:string):Promise<StudentByMentorController> =>{
+  const getStudentByMentor = async(mentorId:string,params:StudentsbyMentorParamsTye):Promise<StudentByMentorController> =>{
     try {
-      let res = await Student.getStudentsByMentor(mentorId);
+      let res = await Student.getStudentsByMentor(mentorId,params);
       return successResponse<typeof res>({ data: res });
     } catch (error:any) {
       return errorResponse({message: error.toString()})

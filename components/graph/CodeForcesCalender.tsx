@@ -3,7 +3,7 @@ import { LeetcodeQuestionsSelector } from "@/recoil/leetcode.atom"
 import { Chart } from "react-google-charts"
 import { useRecoilValue } from "recoil"
 import { useEffect, useState } from "react"
-import { SelectedStudentSelector, StudentCodeforcesQuestionsSelector, StudentLeetCodeQuestionsSelector } from "@/recoil/student.recoil"
+import { SelectedStudentSelector, StudentCodeforcesQuestionsSelector, StudentLeetCodeQuestionsSelector } from "@/recoil/student.atom"
 import { Loader } from "../Loader"
 
 const data = [
