@@ -1,4 +1,4 @@
-import { SelectedStudentSelector } from '@/recoil/student.recoil'
+import { SelectedStudentSelector } from '@/recoil/student.atom'
 import React from 'react'
 import { useRecoilValue } from 'recoil'
 

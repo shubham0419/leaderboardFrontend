@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRecoilValue } from 'recoil'
-import { StudentCodeforcesQuestionsSelector, StudentLeetCodeQuestionsSelector } from '@/recoil/student.recoil'
+import { StudentCodeforcesQuestionsSelector, StudentLeetCodeQuestionsSelector } from '@/recoil/student.atom'
 import { formatReadableDate } from '@/libs/helper'
 
 type problemDataType = {

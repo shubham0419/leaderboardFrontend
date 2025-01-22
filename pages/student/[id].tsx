@@ -1,6 +1,6 @@
 import QuestionNumberCard from '@/components/cards/QuestionNumber';
 import { UseStudentManager } from '@/hooks/student.hook';
-import { SelectedStudentSelector, SelectedYearSelector, StudentCodeforcesQuestionsSelector, StudentLeetCodeQuestionsSelector } from '@/recoil/student.recoil'
+import { SelectedStudentSelector, SelectedYearSelector, StudentCodeforcesQuestionsSelector, StudentLeetCodeQuestionsSelector } from '@/recoil/student.atom'
 import PageHeader from '@/shared/layout-components/page-header/pageheader';
 import Seo from '@/shared/layout-components/seo/seo';
 import { useRouter } from 'next/router';
