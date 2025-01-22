@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRecoilValue } from 'recoil'
 import { StudentCodeforcesQuestionsSelector, StudentLeetCodeQuestionsSelector } from '@/recoil/student.atom'
@@ -38,7 +38,14 @@ const StudentQuestionsTable = () => {
     if(selectedSource=="all") setProblemToShow(allProblems);
     else if(selectedSource=="leetcode") setProblemToShow(leetcodeProblems);
     else setProblemToShow(codeforcesProblems);
-  },[selectedSource])
+  },[selectedSource]);
+
+  const ref = useRef<HTMLTableElement>(null);
+  
+    useEffect(() => {
+      //@ts-ignore
+      ref.current?.parentNode?.setAttribute("style", `height:100%;`);
+    }, []);
   
   return (
     <div className="grid grid-cols-12 gap-x-6 pt-2">
@@ -59,9 +66,9 @@ const StudentQuestionsTable = () => {
             </div>
           </div>
           <div className="box-body">
-            <div className="overflow-auto">
+            <div className="overflow-auto h-[60vh]" ref={ref}>
               <table className="ti-custom-table ti-custom-table-head whitespace-nowrap table-bordered rounded-sm ti-custom-table-head ">
-                <thead className="bg-gray-50 dark:bg-black/20">
+                <thead className="bg-gray-50 dark:bg-gray-800 sticky top-0 left-0">
                   <tr className="">
                     <th scope="col" className="text-black dark:text-white/80">Problem Name</th>
                     <th scope="col" className="text-black dark:text-white/80">Problem Status</th>
@@ -84,7 +91,6 @@ const StudentQuestionsTable = () => {
           </div>
         </div>
       </div>
-      
     </div>
   )
 }

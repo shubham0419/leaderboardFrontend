@@ -46,19 +46,10 @@ const QuestionNumberCard = () => {
         <div className="col-span-12 md:col-span-6 xxl:col-span-3 " key={Math.random()}>
           <div className={`box overflow-hidden border-2 border-${idx.color}-500`}>
             <div className="box-body">
-              <div className="flex">
-                <div className="flex space-x-3 rtl:space-x-reverse">
-                  <h6 className={`text-base font-medium text-${idx.color}-500 mb-2 dark:text-white my-auto`}>
-                    {idx.class}
-                  </h6>
-                </div>
-                <span className={`badge bg-${idx.color}/10 text-${idx.color}-500 py-1 ltr:ml-auto rtl:mr-auto !my-auto`}>
-                  {idx.data}
-                </span>
-              </div>
-              <div className="mt-2">
-                <h2 className={`text-2xl font-semibold text-${idx.color}-500 dark:text-white`}>{idx.text}</h2>
-              </div>
+              <h6 className={`text-base font-medium text-${idx.color}-500 dark:text-white my-auto`}>
+                {idx.class}
+              </h6>
+              <h2 className={`text-2xl font-semibold text-${idx.color}-500 dark:text-white`}>{idx.text}</h2>
             </div>
           </div>
         </div>
@@ -66,32 +57,20 @@ const QuestionNumberCard = () => {
       {selectedStudent?.codeforces_all && <div className="col-span-12 md:col-span-6 xxl:col-span-3 ">
         <div className={`box overflow-hidden border-2 border-violet-900`}>
           <div className="box-body">
-            <div className="flex">
-              <div className="flex space-x-3 rtl:space-x-reverse">
-                <h6 className={`text-base font-medium text-violet-500 mb-2 dark:text-white my-auto`}>
-                  Codeforces All Questions
-                </h6>
-              </div>
-            </div>
-            <div className="mt-2">
-              <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">{selectedStudent?.codeforces_all}</h2>
-            </div>
+            <h6 className={`text-base font-medium text-violet-500 dark:text-white my-auto`}>
+              Codeforces All Questions
+            </h6>
+            <h2 className="text-2xl font-semibold text-violet-500 dark:text-white">{selectedStudent?.codeforces_all}</h2>
           </div>
         </div>
       </div>}
       {selectedStudent?.codeforces_ranking && <div className="col-span-12 md:col-span-6 xxl:col-span-3 ">
         <div className={`box overflow-hidden border-2 border-blue-500`}>
           <div className="box-body">
-            <div className="flex">
-              <div className="flex space-x-3 rtl:space-x-reverse">
-                <h6 className={`text-base font-medium text-blue-500 mb-2 dark:text-white my-auto`}>
-                  Codeforces Rating
-                </h6>
-              </div>
-            </div>
-            <div className="mt-2">
-              <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">{selectedStudent?.codeforces_ranking}</h2>
-            </div>
+            <h6 className={`text-base font-medium text-blue-500 dark:text-white my-auto`}>
+              Codeforces Rating
+            </h6>
+            <h2 className="text-2xl font-semibold text-blue-500 dark:text-white">{selectedStudent?.codeforces_ranking}</h2>
           </div>
         </div>
       </div>}

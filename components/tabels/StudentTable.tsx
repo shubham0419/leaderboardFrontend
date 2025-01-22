@@ -96,7 +96,7 @@ const StudentTable = ({ mentorId }: { mentorId: string }) => {
 						<div className="box-body">
 							<div className="overflow-auto h-[55vh]" ref={ref}>
 								<table className="ti-custom-table ti-custom-table-head whitespace-nowrap table-bordered rounded-sm ti-custom-table-head ">
-									<thead className="bg-gray-300 dark:bg-black/20 sticky top-0 left-0">
+									<thead className="bg-gray-300 dark:bg-gray-800 sticky top-0 left-0">
 										<tr className="">
 											<th scope="col" className="text-black dark:text-white/80">
 												<div className="flex gap-1 items-center">

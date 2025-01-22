@@ -52,7 +52,7 @@ export function CodeforcesCalander() {
   return (
     <div className="w-full">
       {loading?<Loader/>:<>
-      <div className={("flex  items-stretch space-y-0 border-b p-0 md:flex-row md:justify-between px-6 py-5 sm:py-6")}>
+      <div className={("flex  items-stretch space-y-0 border-b p-0 md:flex-row md:justify-between px-6 pt-5")}>
         <div className="flex flex-1 flex-col justify-center gap-1  ">
           <div className="text-lg">Codeforces Questions Calender</div>
         </div>
