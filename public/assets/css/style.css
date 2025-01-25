@@ -4061,7 +4061,7 @@ select {
 }
 
 .main-sidebar-header {
-  @apply px-6 py-5 border-b  h-[71px] my-auto dark:border-white/10 fixed w-full bg-white dark:bg-bgdark z-[1];
+  @apply px-6 border-b  h-[71px] my-auto dark:border-white/10 fixed w-full bg-white dark:bg-bgdark z-[1];
 }
 .main-sidebar-header .main-logo {
   @apply flex-none text-xl font-semibold dark:text-white justify-center align-middle mx-auto my-auto;
