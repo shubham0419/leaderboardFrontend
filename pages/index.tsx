@@ -34,49 +34,47 @@ const Login = () => {
   const setMentor = useSetRecoilState(mentorDataSelector);
   const router = useRouter();
 
-  if (Cookies.get("CBaccessToken") && Cookies.get("CBuser")) {
-    router.push("/dashboard/page");
-  }
 
-  const isMentor = useRecoilValue(isMentorSelector);
 
-  const handleOTPSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      let payload = {
-        userId: userId as string,
-        otp: value,
-        isMentor: isMentor,
-      };
-      let res = await authManager.verifyOTP(payload);
-      if (res.data?.data) {
-        if (isMentor) {
-          Cookies.set("mentor", "1", {
-            expires: 7,
-            // secure: process.env.NODE_ENV === 'production',
-          });
-          setMentor(res?.data?.data?.user as Mentor);
-        } else {
-          setUser(res?.data?.data?.user as User);
+    const isMentor = useRecoilValue(isMentorSelector);
+    
+    const handleOTPSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoading(true);
+        try {
+            let payload = {
+                userId: userId as string,
+                otp: value,
+                isMentor:isMentor
+            }
+            let res = await authManager.verifyOTP(payload);
+            if(res.data?.data) {
+                if(isMentor){
+                    Cookies.set('mentor',"1", {
+                        expires: 7, 
+                        // secure: process.env.NODE_ENV === 'production', 
+                    });
+                    setMentor(res?.data?.data?.user as Mentor);
+                }else{
+                    setUser(res?.data?.data?.user as User);
+                }
+                Cookies.set('CBaccessToken', res?.data?.data?.accessToken, {
+                    expires: 7, 
+                    // secure: process.env.NODE_ENV === 'production', 
+                });
+                Cookies.set('CBuser', res?.data?.data?.user.id, {
+                    expires: 7, 
+                    // secure: process.env.NODE_ENV === 'production', 
+                });
+                router.push("/dashboard/sales");
+            }
+        } catch (error: any) {
+            alert('Invalid OTP');
+            console.error(error);
+        } finally {
+            setLoading(false);
         }
-        Cookies.set("CBaccessToken", res?.data?.data?.accessToken, {
-          expires: 7,
-          // secure: process.env.NODE_ENV === 'production',
-        });
-        Cookies.set("CBuser", res?.data?.data?.user.id, {
-          expires: 7,
-          // secure: process.env.NODE_ENV === 'production',
-        });
-        router.push("/dashboard/sales");
-      }
-    } catch (error: any) {
-      alert("Invalid OTP");
-      console.error(error);
-    } finally {
-      setLoading(false);
     }
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
@@ -95,85 +93,76 @@ const Login = () => {
     }
   };
 
-  return (
-    <Fragment>
-      <HelmetProvider>
-        <Helmet>
-          <html className="h-full light" dir="ltr"></html>
-          <body className="error-page flex h-full !py-0 bg-white dark:bg-bgdark"></body>
-        </Helmet>
-        <div className="grid grid-cols-12 gap-6 w-full">
-          <div className="lg:col-span-6 col-span-12 hidden lg:block relative">
-            <div className="cover relative w-full h-full z-[1] p-10">
-              <div className="authentication-page !h-full justify-center w-full max-w-7xl mx-auto p-0">
-                <Image
-                  src={cb_logo}
-                  alt="logo"
-                  fill
-                  style={{ objectFit: "contain" }}
-                  priority
-                  className="mx-auto h-[500px]"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="lg:col-span-6 col-span-12">
-            <div className="authentication-page w-full">
-              <main id="content" className="w-full max-w-md mx-auto p-6">
-                <Link href="#!" className="header-logo lg:hidden">
-                  <Image
-                    src={cb_logo}
-                    alt="logo"
-                    fill
-                    style={{ objectFit: "contain" }}
-                    priority
-                    className="mx-auto block dark:hidden"
-                  />
-                  <Image
-                    src={cb_logo}
-                    alt="logo"
-                    fill
-                    style={{ objectFit: "contain" }}
-                    priority
-                    className="mx-auto hidden dark:block"
-                  />
-                </Link>
-                <div className="mt-7">
-                  <div
-                    id="pills-with-brand-color-01"
-                    role="tabpanel"
-                    aria-labelledby="pills-with-brand-color-item-1"
-                  >
-                    {authState !== 2 ? (
-                      <form className="p-4 sm:p-7" onSubmit={handleSubmit}>
-                        <div className="text-center">
-                          <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
-                            {isMentor ? "Authority Sign In" : "Sign In"}
-                          </h1>
+    return (
+        <Fragment>
+            <HelmetProvider>
+                <Helmet>
+                    <html className="h-full light" dir="ltr"></html>
+                    <body className="error-page flex h-full !py-0 bg-white dark:bg-bgdark"></body>
+                </Helmet>
+                <div className="grid grid-cols-12 gap-6 w-full">
+                    <div className="lg:col-span-6 col-span-12 hidden lg:block relative">
+                        <div className="cover relative w-full h-full z-[1] p-10">
+                            <div className="authentication-page !h-full justify-center w-full max-w-7xl mx-auto p-0">
+                                <img
+                                    src={`/assets/img/CB_dark.png`}
+                                    alt="logo"
+                                    className="mx-auto h-[500px]"
+                                />
+                            </div>
                         </div>
-                        <div className="mt-5">
-                          <div>
-                            <div className="grid gap-y-4">
-                              <div>
-                                <label
-                                  htmlFor="email"
-                                  className="block text-sm mb-2 dark:text-white"
-                                >
-                                  Email address
-                                </label>
-                                <div className="relative">
-                                  <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="abc@gmail.com"
-                                    value={email}
-                                    className="py-2 px-3 block w-full border-gray-200 rounded-sm text-sm focus:border-primary focus:ring-primary dark:bg-bgdark dark:border-white/10 dark:text-white/70"
-                                    required
-                                  />
-                                </div>
-                              </div>
+                    </div>
+                    <div className="lg:col-span-6 col-span-12">
+                        <div className="authentication-page w-full">
+                            <main id="content" className="w-full max-w-md mx-auto p-6">
+                                <Link href="#!" className="header-logo lg:hidden">
+                                    <img
+                                        src={`../../public/assets/img/CB_dark.png`}
+                                        alt="logo"
+                                        className="mx-auto block dark:hidden"
+                                    />
+                                    <img
+                                        src={`../../public/assets/img/CB_dark.png`}
+                                        alt="logo"
+                                        className="mx-auto hidden dark:block"
+                                    />
+                                </Link>
+                                <div className="mt-7">
+                                    <div
+                                        id="pills-with-brand-color-01"
+                                        role="tabpanel"
+                                        aria-labelledby="pills-with-brand-color-item-1"
+                                    >
+                                        {authState !== 2 ? (
+                                            <form className="p-4 sm:p-7" onSubmit={handleSubmit}>
+                                                <div className="text-center">
+                                                    <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
+                                                        {isMentor?"Authority Sign In":"Sign In"}
+                                                    </h1>
+                                                </div>
+                                                <div className="mt-5">
+                                                    <div>
+                                                        <div className="grid gap-y-4">
+                                                            <div>
+                                                                <label
+                                                                    htmlFor="email"
+                                                                    className="block text-sm mb-2 dark:text-white"
+                                                                >
+                                                                    Email address
+                                                                </label>
+                                                                <div className="relative">
+                                                                    <input
+                                                                        type="email"
+                                                                        id="email"
+                                                                        name="email"
+                                                                        onChange={(e) => setEmail(e.target.value)}
+                                                                        placeholder="abc@gmail.com"
+                                                                        value={email}
+                                                                        className="py-2 px-3 block w-full border-gray-200 rounded-sm text-sm focus:border-primary focus:ring-primary dark:bg-bgdark dark:border-white/10 dark:text-white/70"
+                                                                        required
+                                                                    />
+                                                                </div>
+                                                            </div>
 
                               <button
                                 type="submit"

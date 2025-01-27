@@ -84,9 +84,9 @@ const Page = () => {
   },[studentId,selectedYear])
 
   return (
-    <div>
+    <div className='w-full h-full'>
     <Seo title="Profile"/>
-    {loading?<Loader color='#9CA3AF'/>:<><PageHeader currentpage={selectedStudent?.name ? (`${selectedStudent?.name.toLowerCase()} Profile`):"Profile"}  mainpage="Profile" />
+    {loading?<div className='col-span-12 h-[80Vh] w-full bg-inherit'><Loader /></div>:<><PageHeader currentpage={selectedStudent?.name ? (`${selectedStudent?.name.toLowerCase()} Profile`):"Profile"}  mainpage="Profile" />
     <div className='flex flex-col '>
       <QuestionNumberCard/>
       <LeetcodeHistograph />
