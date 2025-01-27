@@ -11,6 +11,8 @@ const nextConfig = {
   images: {
     loader: "imgix",
     path: "/",
+    domains: ['http://localhost:3000/'], // Add your domain here
+  
   },
 };
 
