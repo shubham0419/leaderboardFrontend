@@ -40,6 +40,7 @@ const StudentTable = ({ mentorId }: { mentorId: string }) => {
 			if (res.status == 200) {
 				setStudentData(res.data?.data?.students);
 				setStudentPagination(res.data?.data?.pagination as StudentPagenationResType);
+				setLoading(false);
 			} else {
 				console.log("students not found for this mentor");
 			}
@@ -77,8 +78,8 @@ const StudentTable = ({ mentorId }: { mentorId: string }) => {
   }, []);
 
 	return (
-		<div className="grid grid-cols-12 gap-x-6 gap-y-0 pt-2">
-			{loading ? <div className='flex justify-center items-center bg-gray-400'><Loader /></div> :
+		<div className="grid grid-cols-12 gap-x-6 gap-y-0 pt-2 w-full">
+			{loading ? <div className='col-span-12 h-[80Vh] w-full bg-inherit'><Loader /></div> :
 				<div className="col-span-12">
 					<div className="box">
 						<div className="box-header">

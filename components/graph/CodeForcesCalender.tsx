@@ -50,8 +50,8 @@ export function CodeforcesCalander() {
   }, [allQuestions]);
 
   return (
-    <div className="w-full">
-      {loading?<Loader/>:<>
+    <div className="w-full h-full">
+      {loading?<div className='col-span-12 h-[80Vh] w-full bg-inherit'><Loader /></div>:<>
       <div className={("flex  items-stretch space-y-0 border-b p-0 md:flex-row md:justify-between px-6 pt-5")}>
         <div className="flex flex-1 flex-col justify-center gap-1  ">
           <div className="text-lg">Codeforces Questions Calender</div>

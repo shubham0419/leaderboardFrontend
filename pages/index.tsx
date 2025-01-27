@@ -24,9 +24,7 @@ const Login = () => {
     const setMentor = useSetRecoilState(mentorDataSelector);
     const router = useRouter();
 
-    if(Cookies.get("CBaccessToken") && Cookies.get("CBuser")){
-        router.push("/dashboard/page");
-    }
+
 
     const isMentor = useRecoilValue(isMentorSelector);
     
@@ -58,7 +56,7 @@ const Login = () => {
                     expires: 7, 
                     // secure: process.env.NODE_ENV === 'production', 
                 });
-                router.push("/dashboard/sales");
+                router.push("/dashboard/page");
             }
         } catch (error: any) {
             alert('Invalid OTP');
@@ -99,7 +97,7 @@ const Login = () => {
                                 <img
                                     src={`/assets/img/CB_dark.png`}
                                     alt="logo"
-                                    className="mx-auto h-[500px]"
+                                    className="mx-auto "
                                 />
                             </div>
                         </div>
@@ -109,12 +107,12 @@ const Login = () => {
                             <main id="content" className="w-full max-w-md mx-auto p-6">
                                 <Link href="#!" className="header-logo lg:hidden">
                                     <img
-                                        src={`../../public/assets/img/CB_dark.png`}
+                                        src={`/assets/img/CB_dark.png`}
                                         alt="logo"
                                         className="mx-auto block dark:hidden"
                                     />
                                     <img
-                                        src={`../../public/assets/img/CB_dark.png`}
+                                        src={`/assets/img/CB_dark.png`}
                                         alt="logo"
                                         className="mx-auto hidden dark:block"
                                     />
