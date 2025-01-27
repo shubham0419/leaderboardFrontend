@@ -95,16 +95,9 @@ const Login = () => {
                 <div className="grid grid-cols-12 gap-6 w-full">
                     <div className="lg:col-span-6 col-span-12 hidden lg:block relative">
                         <div className="cover relative w-full h-full z-[1] p-10">
-                            <Link href="#!" className="header- logo">
-                                <img
-                                    src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/img/brand-logos/desktop-light.png`}
-                                    alt="logo"
-                                    className="ltr:ml-auto rtl:mr-auto block"
-                                />
-                            </Link>
                             <div className="authentication-page !h-full justify-center w-full max-w-7xl mx-auto p-0">
                                 <img
-                                    src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/img/authentication/2.png`}
+                                    src={`/assets/img/CB_dark.png`}
                                     alt="logo"
                                     className="mx-auto h-[500px]"
                                 />
@@ -116,12 +109,12 @@ const Login = () => {
                             <main id="content" className="w-full max-w-md mx-auto p-6">
                                 <Link href="#!" className="header-logo lg:hidden">
                                     <img
-                                        src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/img/brand-logos/desktop-logo.png`}
+                                        src={`../../public/assets/img/CB_dark.png`}
                                         alt="logo"
                                         className="mx-auto block dark:hidden"
                                     />
                                     <img
-                                        src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/img/brand-logos/desktop-logo.png`}
+                                        src={`../../public/assets/img/CB_dark.png`}
                                         alt="logo"
                                         className="mx-auto hidden dark:block"
                                     />

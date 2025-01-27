@@ -558,10 +558,10 @@ const Sidebar = ({ local_varaiable, ThemeChanger }: any) => {
 				onMouseLeave={() => Outhover()} >
 				<div className="main-sidebar-header">
 					<Link href={"/dashboard/page/"} className="header-logo">
-						<img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/img/brand-logos/desktop-logo.png`} alt="logo" className="main-logo desktop-logo" />
-						<img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/img/brand-logos/toggle-logo.png`} alt="logo" className="main-logo toggle-logo" />
-						<img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/img/brand-logos/desktop-dark.png`} alt="logo" className="main-logo desktop-dark" />
-						<img src={`${process.env.NODE_ENV === "production" ? basePath : ""}/assets/img/brand-logos/toggle-dark.png`} alt="logo" className="main-logo toggle-dark" />
+						<img src={`${basePath}/assets/img/CB_dark.png`} alt="logo" className="main-logo desktop-logo w-28 mt-4" />
+						<img src={`${basePath}/assets/img/CB_logo.png`} alt="logo" className="main-logo toggle-logo w-36 mt-2" />
+						<img src={`${basePath}/assets/img/CB_white.png`} alt="logo" className="main-logo desktop-dark w-40 " />
+						<img src={`${basePath}/assets/img/CB_logo.png`} alt="logo" className="main-logo toggle-dark" />
 					</Link>
 				</div>
 
