@@ -23,7 +23,7 @@ const UploadFile = () => {
     formData.append("institue","GLA");
 
     try {
-      const response = await fetch(`${API_CONSTANTS.BASE_URL}/api/upload"`, {
+      const response = await fetch(`${API_CONSTANTS.BASE_URL}/upload`, {
         method: "POST",
         body: formData
       });

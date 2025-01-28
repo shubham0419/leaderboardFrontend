@@ -40,6 +40,15 @@ export function UseStudentManager(){
     }
   }
 
+  const getStudentWeeklyQuestions = async(params:WeeklyStudentDataParams):Promise<StudentWeeklyDataController>=>{
+    try {
+      let res = await Student.getStudentWeeklyData(params);
+      return successResponse<typeof res>({ data: res });
+    } catch (error:any) {
+      return errorResponse({message: error.toString()})
+    }
+  }
+
   const getCodeforcescodeQuestions = async(payload:StudentProblemPayloadType):Promise<StudentCFQuestionsController>=>{
     try {
       let res = await Student.getStudentCodeforcesQuestionsByYear(payload);
@@ -48,5 +57,5 @@ export function UseStudentManager(){
       return errorResponse({message: error.toString()})
     }
   }
-  return { getStudentByMentor,getStudentById ,getStudentLeetcodeQuestions,getCodeforcescodeQuestions,getAllStudents}
+  return { getStudentByMentor,getStudentById ,getStudentLeetcodeQuestions,getCodeforcescodeQuestions,getAllStudents,getStudentWeeklyQuestions}
 }
