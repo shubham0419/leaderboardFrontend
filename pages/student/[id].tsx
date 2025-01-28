@@ -1,4 +1,4 @@
-import QuestionNumberCard from '@/components/cards/QuestionNumber';
+import QuestionNumberCard from '@/components/cards/Questionnumber';
 import { UseStudentManager } from '@/hooks/student.hook';
 import { SelectedStudentSelector, SelectedYearSelector, StudentCodeforcesQuestionsSelector, StudentLeetCodeQuestionsSelector, WeeklyDataDatesSelector } from '@/recoil/student.atom'
 import PageHeader from '@/shared/layout-components/page-header/pageheader';
@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import StudentQuestionsTable from '@/components/tabels/StudentQuestionsTable';
-import { LeetcodeHistograph } from '@/components/graph/LeetcodeCalender';
+import { LeetcodeHistograph } from '@/components/graph/leetcodeCalender';
 import { Loader } from '@/components/Loader';
 import { CodeforcesCalander } from '@/components/graph/CodeForcesCalender';
 import { WeeklyGraph } from '@/components/graph/weekwiseGraph';
