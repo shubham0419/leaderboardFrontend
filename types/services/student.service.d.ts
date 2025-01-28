@@ -42,6 +42,20 @@ declare type StudentQuestionResType = {
   };
 };
 
+declare type WeeklyStudentDataResType ={
+  status: string;
+  message: string;
+  data: {
+    leetcode: StudentWeeklyQuestionsType[];
+    codeforces:StudentWeeklyQuestionsType[];
+  };
+}
+
+declare type StudentWeeklyQuestionsType = {
+  date:string,
+  problemsSolved:number
+}
+
 declare type LeetcodeProblemDataType = {
   id: string;
   leetcode_username: string;
@@ -55,6 +69,12 @@ declare type LeetcodeProblemDataType = {
   created_at: string;
   updated_at: string;
 };
+
+declare type WeeklyStudentDataParams = {
+  oauth_id:string,
+  startDate:Date,
+  endDate:Date,
+}
 
 declare type StudentProblemPayloadType = {
   oauth_id: string;

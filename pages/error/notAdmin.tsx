@@ -18,7 +18,7 @@ const AdminError = () => {
             </a>
           </button>
           <button  className="w-full border rounded-md p-2 bg-primary text-white">
-            <Link href="/authority/login">Return to Login</Link>
+            <Link className='w-full' href="/authority/login">Return to Login</Link>
           </button>
         </div>
       </div>

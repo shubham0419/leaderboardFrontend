@@ -1,4 +1,8 @@
 
+declare type StudentWeeklyDataController = responseWrapperType & {
+  data?:WeeklyStudentDataResType
+}
+
 declare type AllStudentsController = responseWrapperType & {
   data?:AllStudentResType
 }

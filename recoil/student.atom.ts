@@ -155,3 +155,42 @@ export const StudentDataPaginationSelector = selector<StudentPagenationResType>(
     }))
   }
 })
+
+// weekly data dates selector
+export const WeeklyDataDatesSelector = selectorFamily<Date,"endDate"|"startDate" >({
+  key: 'WeeklyDataDatesSelector',
+  get: (field) => ({ get }) => {
+    const data = get(StudentDataAtom);
+    return data.weeklyGraphData.date[field] ?? undefined;
+  },
+  set: (field) => ({ set }, newValue) => {
+    set(StudentDataAtom, prev => ({
+      ...prev,
+      weeklyGraphData: {
+        ...prev.weeklyGraphData,
+        date: {
+          ...prev.weeklyGraphData.date,
+          [field]: newValue
+        }
+      }
+    }))
+  }
+})
+
+// weekly data questions selector
+export const WeeklyDataQuestionsSelector = selector({
+  key: 'WeeklyDataQuestionsSelector',
+  get: ({ get }) => {
+    const data = get(StudentDataAtom);
+    return data.weeklyGraphData.questions ?? undefined;
+  },
+  set: ({ set }, newValue) => {
+    set(StudentDataAtom, prev => ({
+      ...prev,
+      weeklyGraphData:{
+        ...prev.weeklyGraphData,
+        questions: newValue as weeklyQuestionsType
+      }
+    }))
+  }
+})
