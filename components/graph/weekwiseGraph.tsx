@@ -28,25 +28,43 @@ export function WeeklyGraph({oauth_id}:{oauth_id:string}) {
   const [loading, setLoading] = useState(false);
   const [chartData, setChartData] = useState([["Time", "LeetCode", "CodeForces"]]);
 
-  const formatDataForChart = (data: weeklyQuestionsType) => {
-    const allDates = new Set([
-      ...data.leetcode.map(item => item.date),
-      ...data.codeforces.map(item => item.date)
-    ]);
+  const getDatesInRange = (startDate: Date, endDate: Date) => {
+    const dates = [];
+    const currentDate = new Date(startDate);
 
-    const formattedData = Array.from(allDates).map(date => {
-      const leetcodeEntry = data.leetcode.find(item => item.date === date);
-      const codeforcesEntry = data.codeforces.find(item => item.date === date);
-      
+    while (currentDate <= endDate) {
+      dates.push(new Date(currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    return dates;
+  };
+
+  const formatDataForChart = (data: weeklyQuestionsType) => {
+    // Convert string dates to Date objects for comparison
+    const start = new Date(selectedStartDate);
+    const end = new Date(selectedEndDate);
+    
+    // Get all dates in range
+    const allDates = getDatesInRange(start, end);
+
+    // Create a map for quick lookup of existing data
+    const leetcodeMap = new Map(
+      data.leetcode.map(item => [new Date(item.date).toISOString().split('T')[0], item.problemsSolved])
+    );
+    const codeforcesMap = new Map(
+      data.codeforces.map(item => [new Date(item.date).toISOString().split('T')[0], item.problemsSolved])
+    );
+
+    // Format data for each date in range
+    const formattedData = allDates.map(date => {
+      const dateStr = date.toISOString().split('T')[0];
       return [
-        new Date(date),
-        leetcodeEntry?.problemsSolved || 0,
-        codeforcesEntry?.problemsSolved || 0
+        date,
+        leetcodeMap.get(dateStr) || 0,
+        codeforcesMap.get(dateStr) || 0
       ];
     });
-
-    // Sort by date
-    formattedData.sort((a, b) => (a[0] as Date).getTime() - (b[0] as Date).getTime());
 
     return [["Time", "LeetCode", "CodeForces"], ...formattedData];
   };
@@ -80,23 +98,30 @@ export function WeeklyGraph({oauth_id}:{oauth_id:string}) {
   }
 
   return (
-    <div className="w-full">{loading?<div className="w-full bg-inherit"><Loader/></div>:
-      <Chart
-        chartType="LineChart"
-        width="100%"
-        height="400px"
-        data={chartData}
-        options={options}
-        formatters={[
-          {
-            column: 0,
-            type: "DateFormat",
-            options: {
-              timeZone: 0,
-            },
-          },
-        ]}
-      />}
+    <div className="w-full">
+      {loading ? 
+        <div className="w-full bg-inherit"><Loader/></div> :
+        <div className="px-2 sm:p-6 w-full overflow-auto scrollbar-hide">
+          <div className="w-full whitespace-nowrap rounded-md border py-5 ps-2">
+            <Chart
+              chartType="LineChart"
+              width="100%"
+              height="400px"
+              data={chartData}
+              options={options}
+              formatters={[
+                {
+                  column: 0,
+                  type: "DateFormat",
+                  options: {
+                    timeZone: 0,
+                  },
+                },
+              ]}
+            />
+          </div>
+        </div>
+      }
     </div>
   );
 }

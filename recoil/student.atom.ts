@@ -17,6 +17,12 @@ const StudentDataAtom = atom({
       totalPages: 1,
       totalStudents: 1,
       limit: 1,
+    },
+    weeklyGraphData:{
+      date:{
+        startDate: new Date(new Date().setDate(new Date().getDate() - 7)),
+        endDate: new Date()
+      }
     }
   } as StudentDataAtomType
 });
