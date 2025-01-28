@@ -10,6 +10,7 @@ import StudentQuestionsTable from '@/components/tabels/StudentQuestionsTable';
 import { LeetcodeHistograph } from '@/components/graph/LeetcodeCalender';
 import { Loader } from '@/components/Loader';
 import { CodeforcesCalander } from '@/components/graph/CodeForcesCalender';
+import { WeeklyGraph } from '@/components/graph/weekwiseGraph';
 
 const Page = () => {
   const router = useRouter()
@@ -89,6 +90,7 @@ const Page = () => {
     {loading?<div className='col-span-12 h-[80Vh] w-full bg-inherit'><Loader /></div>:<><PageHeader currentpage={selectedStudent?.name ? (`${selectedStudent?.name.toLowerCase()} Profile`):"Profile"}  mainpage="Profile" />
     <div className='flex flex-col '>
       <QuestionNumberCard/>
+      <WeeklyGraph oauth_id={selectedStudent?.oauth_id as string}/>
       <LeetcodeHistograph />
       <CodeforcesCalander/>
       <StudentQuestionsTable />

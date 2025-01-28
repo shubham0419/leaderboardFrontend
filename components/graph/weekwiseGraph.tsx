@@ -3,6 +3,7 @@ import { WeeklyDataDatesSelector, WeeklyDataQuestionsSelector } from "@/recoil/s
 import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { Loader } from "../Loader";
 
 export const options = {
   title: "Weekly Programming Progress",
@@ -79,21 +80,23 @@ export function WeeklyGraph({oauth_id}:{oauth_id:string}) {
   }
 
   return (
-    <Chart
-      chartType="LineChart"
-      width="100%"
-      height="400px"
-      data={chartData}
-      options={options}
-      formatters={[
-        {
-          column: 0,
-          type: "DateFormat",
-          options: {
-            timeZone: 0,
+    <div className="w-full">{loading?<div className="w-full bg-inherit"><Loader/></div>:
+      <Chart
+        chartType="LineChart"
+        width="100%"
+        height="400px"
+        data={chartData}
+        options={options}
+        formatters={[
+          {
+            column: 0,
+            type: "DateFormat",
+            options: {
+              timeZone: 0,
+            },
           },
-        },
-      ]}
-    />
+        ]}
+      />}
+    </div>
   );
 }
