@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Loader } from "../Loader";
+import { formatReadableDate } from "@/libs/helper";
 
 export const options = {
   title: "Weekly Programming Progress",
@@ -12,12 +13,23 @@ export const options = {
   hAxis: {
     title: "Date",
     format: "MMM dd, yyyy",
-    gridlines: { count: 3 },
+    gridlines: { count: 6 },
   },
   vAxis: {
     title: "Problems Solved",
     minValue: 0
   }
+};
+
+// Helper function to convert date to IST string
+const toISTString = (date: Date): string => {
+  const options: Intl.DateTimeFormatOptions = {
+    timeZone: 'Asia/Kolkata',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  };
+  return new Date(date.toLocaleString('en-US', options)).toISOString().split('T')[0];
 };
 
 export function WeeklyGraph({oauth_id}:{oauth_id:string}) {
@@ -28,12 +40,18 @@ export function WeeklyGraph({oauth_id}:{oauth_id:string}) {
   const [loading, setLoading] = useState(false);
   const [chartData, setChartData] = useState([["Time", "LeetCode", "CodeForces"]]);
 
-  const getDatesInRange = (startDate: Date, endDate: Date) => {
+  const getDatesInRange = (startDate: string, endDate: string) => {
     const dates = [];
     const currentDate = new Date(startDate);
+    const end = new Date(endDate);
 
-    while (currentDate <= endDate) {
-      dates.push(new Date(currentDate));
+    // Add IST offset (5 hours and 30 minutes in milliseconds)
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    currentDate.setTime(currentDate.getTime() + istOffset);
+    end.setTime(end.getTime() + istOffset);
+
+    while (currentDate <= end) {
+      dates.push(toISTString(currentDate));
       currentDate.setDate(currentDate.getDate() + 1);
     }
 
@@ -41,30 +59,30 @@ export function WeeklyGraph({oauth_id}:{oauth_id:string}) {
   };
 
   const formatDataForChart = (data: weeklyQuestionsType) => {
-    // Convert string dates to Date objects for comparison
-    const start = new Date(selectedStartDate);
-    const end = new Date(selectedEndDate);
-    
     // Get all dates in range
-    const allDates = getDatesInRange(start, end);
-
-    // Create a map for quick lookup of existing data
+    const allDates = getDatesInRange(selectedStartDate.toISOString(), selectedEndDate.toISOString());
+    
+    // Create maps for quick lookup using IST dates
     const leetcodeMap = new Map(
-      data.leetcode.map(item => [new Date(item.date).toISOString().split('T')[0], item.problemsSolved])
+      data.leetcode.map(item => {
+        const date = new Date(item.date);
+        return [toISTString(date), item.problemsSolved];
+      })
     );
+    
     const codeforcesMap = new Map(
-      data.codeforces.map(item => [new Date(item.date).toISOString().split('T')[0], item.problemsSolved])
+      data.codeforces.map(item => {
+        const date = new Date(item.date);
+        return [toISTString(date), item.problemsSolved];
+      })
     );
 
     // Format data for each date in range
-    const formattedData = allDates.map(date => {
-      const dateStr = date.toISOString().split('T')[0];
-      return [
-        date,
-        leetcodeMap.get(dateStr) || 0,
-        codeforcesMap.get(dateStr) || 0
-      ];
-    });
+    const formattedData = allDates.map(istDate => [
+      formatReadableDate(istDate + 'T00:00:00+05:30'), 
+      leetcodeMap.get(istDate) || 0,
+      codeforcesMap.get(istDate) || 0
+    ]);
 
     return [["Time", "LeetCode", "CodeForces"], ...formattedData];
   };
@@ -114,7 +132,7 @@ export function WeeklyGraph({oauth_id}:{oauth_id:string}) {
                   column: 0,
                   type: "DateFormat",
                   options: {
-                    timeZone: 0,
+                    timeZone: 'Asia/Kolkata',
                   },
                 },
               ]}
