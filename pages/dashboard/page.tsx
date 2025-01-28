@@ -36,7 +36,7 @@ const Page = () => {
           <UploadFile/>
         </div>
       
-      <StudentTable mentorId='35e0619a-48c1-4887-98fb-9d7cf7368ae4'/>
+      <StudentTable/>
       </div>
     </div>
   )

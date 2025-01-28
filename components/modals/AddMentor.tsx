@@ -69,7 +69,8 @@ const AddMentorDialog = () => {
                 <input id='intitute_name' type='email' className='rounded-md' placeholder='Enter Email' onChange={(e)=>setEmail(e.target.value)} />
               </div>
               <div className="flex flex-col gap-2">
-                <CustomSearchSelect items={formatedInstitues} onSelect={handleSelect} />
+              <label className="text-sm font-medium text-gray-700">Select College</label>
+                <CustomSearchSelect items={formatedInstitues} onSelect={handleSelect} placeholder='Select College'/>
               </div>
               <button
                 type="submit"

@@ -13,6 +13,15 @@ export function UseStudentManager(){
     }
   }
 
+  const getAllStudents = async(params:StudentsbyMentorParamsTye):Promise<AllStudentsController> =>{
+    try {
+      let res = await Student.getAllStudents(params);
+      return successResponse<typeof res>({ data: res });
+    } catch (error:any) {
+      return errorResponse({message: error.toString()})
+    }
+  }
+
   const getStudentById = async(studentId:string):Promise<StudentByIdController>=>{
     try {
       let res = await Student.getStudentById(studentId);
@@ -39,5 +48,5 @@ export function UseStudentManager(){
       return errorResponse({message: error.toString()})
     }
   }
-  return { getStudentByMentor,getStudentById ,getStudentLeetcodeQuestions,getCodeforcescodeQuestions}
+  return { getStudentByMentor,getStudentById ,getStudentLeetcodeQuestions,getCodeforcescodeQuestions,getAllStudents}
 }

@@ -28,6 +28,18 @@ export default class Student {
   })
   }
 
+  static getAllStudents= async(params:StudentsbyMentorParamsTye) => {
+    return new Promise<AllStudentResType>(async (resolve,reject)=>{
+    try {
+      let res = await axios.get(API_CONSTANTS.allStudent,params);
+      if (res?.data?.status == "failed") throw res.data.message;
+      return resolve(JSON.parse(JSON.stringify(res.data)) as AllStudentResType);
+    } catch (error:any) {
+      return reject(error);
+    }
+  })
+  }
+
   static getStudentLeetcodeQuestionsByYear = (payload:StudentProblemPayloadType)=>{
     return new Promise<StudentQuestionResType>(async (resolve,reject)=>{
       try {

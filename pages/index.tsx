@@ -42,7 +42,7 @@ const Login = () => {
                 if(isMentor){
                     Cookies.set('mentor',"1", {
                         expires: 7, 
-                        // secure: process.env.NODE_ENV === 'production', 
+                        secure: true, 
                     });
                     setMentor(res?.data?.data?.user as Mentor);
                 }else{
@@ -50,13 +50,21 @@ const Login = () => {
                 }
                 Cookies.set('CBaccessToken', res?.data?.data?.accessToken, {
                     expires: 7, 
-                    // secure: process.env.NODE_ENV === 'production', 
+                    secure: true, 
                 });
                 Cookies.set('CBuser', res?.data?.data?.user.id, {
                     expires: 7, 
-                    // secure: process.env.NODE_ENV === 'production', 
+                    secure: true, 
                 });
-                router.push("/dashboard/page");
+                if(isMentor ){
+                    let mentor = res.data.data.user as Mentor;
+                    if(mentor.isAdmin){
+                        return router.push('/dashboard/page');
+                    }else{
+                        return router.push('/error/notAdmin');
+                    }
+                }
+                return router.push(`/student/${res.data.data.user.id}`);
             }
         } catch (error: any) {
             alert('Invalid OTP');

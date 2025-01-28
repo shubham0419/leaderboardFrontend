@@ -7,13 +7,16 @@ import Link from "next/link";
 import { basePath } from "@/next.config";
 import { useRecoilValue } from "recoil";
 import { mentorDataSelector, studentDataSelector } from "@/recoil/auth.atom";
+import Cookies from 'js-cookie';
+import { useRouter } from "next/router";
+
 
 const Header = ({ local_varaiable, ThemeChanger } :any) => {
 
     let [storedata, SetStoreData] = useState(local_varaiable);
     const user = useRecoilValue(studentDataSelector);
     const mentor = useRecoilValue(mentorDataSelector);
-
+    const router = useRouter();
     //full screen
     function Fullscreen() {
         if (!document.fullscreenElement &&
@@ -242,8 +245,6 @@ const Header = ({ local_varaiable, ThemeChanger } :any) => {
     };
 
 
-    
-   
     useEffect(() => {
         const navbar :any = document.querySelector(".header");
         const navbar1:any = document.querySelector(".app-sidebar");
@@ -270,6 +271,11 @@ const Header = ({ local_varaiable, ThemeChanger } :any) => {
         };
     }, []);
 
+    const handleLogout = ()=>{
+      Cookies.remove("CBuser");
+      Cookies.remove("CBaccessToken");
+      router.push("/");
+    }
     
     return (
         <Fragment>
@@ -341,10 +347,10 @@ const Header = ({ local_varaiable, ThemeChanger } :any) => {
                                                     <i className="ti ti-adjustments-horizontal text-lg"></i>
                                                     Settings
                                                 </Link>
-                                                <Link href="#!" className="ti-dropdown-item">
+                                                <button onClick={handleLogout} className="ti-dropdown-item">
                                                     <i className="ti ti-logout  text-lg"></i>
                                                     Log Out
-                                                </Link>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

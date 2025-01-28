@@ -1,4 +1,8 @@
 
+declare type AllStudentsController = responseWrapperType & {
+  data?:AllStudentResType
+}
+
 declare type StudentByMentorController = responseWrapperType & {
   data?:StudentsbyMentorResTye
 }
