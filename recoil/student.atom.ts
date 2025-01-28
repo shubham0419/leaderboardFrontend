@@ -161,7 +161,7 @@ export const WeeklyDataDatesSelector = selectorFamily<Date,"endDate"|"startDate"
   key: 'WeeklyDataDatesSelector',
   get: (field) => ({ get }) => {
     const data = get(StudentDataAtom);
-    return data.weeklyGraphData.date[field] ?? undefined;
+    return data?.weeklyGraphData?.date?.[field] ?? undefined;
   },
   set: (field) => ({ set }, newValue) => {
     set(StudentDataAtom, prev => ({
@@ -182,7 +182,7 @@ export const WeeklyDataQuestionsSelector = selector({
   key: 'WeeklyDataQuestionsSelector',
   get: ({ get }) => {
     const data = get(StudentDataAtom);
-    return data.weeklyGraphData.questions ?? undefined;
+    return data?.weeklyGraphData?.questions ?? undefined;
   },
   set: ({ set }, newValue) => {
     set(StudentDataAtom, prev => ({
