@@ -62,17 +62,17 @@ export function CustomSearchSelect({ items, onSelect, placeholder = "Search item
         <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg">
           <input
             type="text"
-            className="w-full p-2 border-b"
-            placeholder={"Search"}
+            className="w-full p-2 border-none rounded-md"
+            placeholder={"Search..."}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
           <ul className="max-h-60 overflow-auto">
             {filteredItems.length === 0 ? (
-              <li className="p-2 text-gray-500">No items found</li>
+              <li className="p-2 text-gray-500">Not found</li>
             ) : (
               filteredItems.map((item) => (
-                <li key={item.id} className="p-2 hover:bg-gray-100 cursor-pointer" onClick={() => handleSelect(item)}>
+                <li key={item.id} className="p-2 hover:bg-gray-100 cursor-pointer rounded-md" onClick={() => handleSelect(item)}>
                   {item.label}
                 </li>
               ))

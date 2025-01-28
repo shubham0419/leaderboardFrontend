@@ -5,13 +5,12 @@ import { SelectedStudentSelector, StudentDataPaginationSelector, StudentFilterSe
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Loader } from '../Loader';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 
-const StudentTable = ({ mentorId }: { mentorId: string }) => {
-
+const StudentTable = () => {
 	const studentManager = UseStudentManager();
 	const [loading, setLoading] = useState(false);
 	const [studentData, setStudentData] = useRecoilState(StudentsDataSelector);
@@ -24,7 +23,34 @@ const StudentTable = ({ mentorId }: { mentorId: string }) => {
 	const studentSearch = useRecoilValue(StudentFilterSelector("name"))
 	const router = useRouter();
 
-	const getStudentDataByMentor = async () => {
+	// const getStudentDataByMentor = async () => {
+	// 	try {
+	// 		setLoading(true);
+	// 		let filter: StudentsbyMentorParamsTye = {
+	// 			params: {
+	// 				limit: studentLimit as number,
+	// 				page: studentPage as number,
+	// 				sortBy: studentSortBy as sortByType,
+	// 				sortOrder: studentSortOrder as sortOrderType,
+	// 				name: studentSearch as string,
+	// 			}
+	// 		}
+	// 		let res = await studentManager.getStudentByMentor(mentorId, filter);
+	// 		if (res.status == 200) {
+	// 			setStudentData(res.data?.data?.students);
+	// 			setStudentPagination(res.data?.data?.pagination as StudentPagenationResType);
+	// 			setLoading(false);
+	// 		} else {
+	// 			console.log("students not found for this mentor");
+	// 		}
+	// 	} catch (error: any) {
+	// 		console.error(error);
+	// 	} finally {
+	// 		setLoading(false);
+	// 	}
+	// }
+
+	const getAllStudents = async () => {
 		try {
 			setLoading(true);
 			let filter: StudentsbyMentorParamsTye = {
@@ -36,7 +62,7 @@ const StudentTable = ({ mentorId }: { mentorId: string }) => {
 					name: studentSearch as string,
 				}
 			}
-			let res = await studentManager.getStudentByMentor(mentorId, filter);
+			let res = await studentManager.getAllStudents(filter);
 			if (res.status == 200) {
 				setStudentData(res.data?.data?.students);
 				setStudentPagination(res.data?.data?.pagination as StudentPagenationResType);
@@ -58,8 +84,9 @@ const StudentTable = ({ mentorId }: { mentorId: string }) => {
 	};
 
 	useEffect(() => {
-		getStudentDataByMentor();
-	}, [mentorId, studentLimit, studentSearch, studentSortBy, studentSortOrder, studentPage]);
+		// getStudentDataByMentor();
+		getAllStudents();
+	}, [studentLimit, studentSearch, studentSortBy, studentSortOrder, studentPage]);
 
 
 	const handleStudentClick = (studentId: string) => {

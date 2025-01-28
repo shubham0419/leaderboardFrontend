@@ -8,6 +8,15 @@ declare type StudentsbyMentorResTye = {
   };
 };
 
+declare type AllStudentResType = {
+  status: string;
+  message: string;
+  data: {
+    students: User[];
+    pagination: StudentPagenationResType
+  };
+};
+
 declare type StudentPagenationResType ={
   currentPage: number;
   totalPages: number;

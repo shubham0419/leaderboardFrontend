@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CustomSearchSelect } from '../inputs/SearchSelect';
 import { FileUp } from 'lucide-react';
+import API_CONSTANTS from '@/constants/apiConstant';
 
 const UploadFile = () => {
   const [name, setName] = useState("");
@@ -19,11 +20,10 @@ const UploadFile = () => {
     setIsOpen(false);
     const formData = new FormData();
     formData.append("datafiles", file as File);
-    formData.append("mentorId","9fed265a-7d99-4a97-820e-e871ee240a9b");
     formData.append("institue","GLA");
 
     try {
-      const response = await fetch("http://localhost:8000/api/upload", {
+      const response = await fetch(`${API_CONSTANTS.BASE_URL}/api/upload"`, {
         method: "POST",
         body: formData
       });

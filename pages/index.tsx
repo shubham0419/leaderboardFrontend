@@ -1,38 +1,28 @@
 import { UseAuthManager } from "@/hooks/auth.hook";
 import { basePath } from "@/next.config";
-import {
-  authStateSelector,
-  emailSelector,
-  isMentorSelector,
-  mentorDataSelector,
-  otpResSelector,
-  otpSelector,
-  studentDataSelector,
-  studentIdSelector,
-} from "@/recoil/auth.atom";
+import { authStateSelector, emailSelector, isMentorSelector, mentorDataSelector, otpResSelector, otpSelector, studentDataSelector, studentIdSelector } from "@/recoil/auth.atom";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 import { Loader } from "@/components/Loader";
-import Image from "next/image";
-import cb_logo from "/public/CB_dark.png";
+
 
 const Login = () => {
-  const [email, setEmail] = useRecoilState(emailSelector);
-  const setOtpRes = useSetRecoilState(otpResSelector);
-  const authManager = UseAuthManager();
-  const [authState, setAuthState] = useRecoilState(authStateSelector);
-  const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useRecoilState(emailSelector);
+    const setOtpRes = useSetRecoilState(otpResSelector);
+    const authManager = UseAuthManager();
+    const [authState, setAuthState] = useRecoilState(authStateSelector);
+    const [loading, setLoading] = useState(false);
 
-  // otp states
-  const [value, setValue] = useRecoilState(otpSelector);
-  const userId = useRecoilValue(studentIdSelector);
-  const setUser = useSetRecoilState(studentDataSelector);
-  const setMentor = useSetRecoilState(mentorDataSelector);
-  const router = useRouter();
+    // otp states
+    const [value, setValue] = useRecoilState(otpSelector);
+    const userId = useRecoilValue(studentIdSelector);
+    const setUser = useSetRecoilState(studentDataSelector);
+    const setMentor = useSetRecoilState(mentorDataSelector);
+    const router = useRouter();
 
 
 
@@ -52,7 +42,7 @@ const Login = () => {
                 if(isMentor){
                     Cookies.set('mentor',"1", {
                         expires: 7, 
-                        // secure: process.env.NODE_ENV === 'production', 
+                        secure: true, 
                     });
                     setMentor(res?.data?.data?.user as Mentor);
                 }else{
@@ -60,13 +50,21 @@ const Login = () => {
                 }
                 Cookies.set('CBaccessToken', res?.data?.data?.accessToken, {
                     expires: 7, 
-                    // secure: process.env.NODE_ENV === 'production', 
+                    secure: true, 
                 });
                 Cookies.set('CBuser', res?.data?.data?.user.id, {
                     expires: 7, 
-                    // secure: process.env.NODE_ENV === 'production', 
+                    secure: true, 
                 });
-                router.push("/dashboard/sales");
+                if(isMentor ){
+                    let mentor = res.data.data.user as Mentor;
+                    if(mentor.isAdmin){
+                        return router.push('/dashboard/page');
+                    }else{
+                        return router.push('/error/notAdmin');
+                    }
+                }
+                return router.push(`/student/${res.data.data.user.id}`);
             }
         } catch (error: any) {
             alert('Invalid OTP');
@@ -76,22 +74,22 @@ const Login = () => {
         }
     }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    setLoading(true);
-    e.preventDefault();
-    try {
-      const res = await authManager.getOTP(email, isMentor);
-      if (res.status == 200) {
-        setOtpRes(res?.data as loginOTPResType);
-        setAuthState(2);
-      }
-    } catch (error: any) {
-      alert("Invalid credentials");
-      console.error(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        setLoading(true)
+        e.preventDefault();
+        try {
+            const res = await authManager.getOTP(email,isMentor);
+            if (res.status == 200) {
+                setOtpRes(res?.data as loginOTPResType);
+                setAuthState(2);
+            }
+        } catch (error: any) {
+            alert('Invalid credentials');
+            console.error(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <Fragment>
@@ -107,7 +105,7 @@ const Login = () => {
                                 <img
                                     src={`/assets/img/CB_dark.png`}
                                     alt="logo"
-                                    className="mx-auto h-[500px]"
+                                    className="mx-auto "
                                 />
                             </div>
                         </div>
@@ -117,12 +115,12 @@ const Login = () => {
                             <main id="content" className="w-full max-w-md mx-auto p-6">
                                 <Link href="#!" className="header-logo lg:hidden">
                                     <img
-                                        src={`../../public/assets/img/CB_dark.png`}
+                                        src={`/assets/img/CB_dark.png`}
                                         alt="logo"
                                         className="mx-auto block dark:hidden"
                                     />
                                     <img
-                                        src={`../../public/assets/img/CB_dark.png`}
+                                        src={`/assets/img/CB_dark.png`}
                                         alt="logo"
                                         className="mx-auto hidden dark:block"
                                     />
@@ -164,70 +162,69 @@ const Login = () => {
                                                                 </div>
                                                             </div>
 
-                              <button
-                                type="submit"
-                                className="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-sm border border-transparent font-semibold bg-primary text-white hover:bg-primary focus:outline-none focus:ring-0 focus:ring-primary focus:ring-offset-0 transition-all text-sm dark:focus:ring-offset-white/10"
-                              >
-                                Get OTP
-                                {loading ? <Loader /> : ""}
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                    ) : (
-                      <form className="p-4 sm:p-7" onSubmit={handleOTPSubmit}>
-                        <div className="text-center">
-                          <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
-                            Enter OTP
-                          </h1>
-                          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                            Please enter the OTP sent to your email
-                          </p>
-                        </div>
-                        <div className="mt-5">
-                          <div className="grid gap-y-4">
-                            <div>
-                              <label className="block text-sm mb-2 dark:text-white">
-                                OTP Code
-                              </label>
-                              <div className="relative">
-                                <OTPInput value={value} onChange={setValue} />
-                              </div>
-                            </div>
+                                                            <button
+                                                                type="submit"
+                                                                className="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-sm border border-transparent font-semibold bg-primary text-white hover:bg-primary focus:outline-none focus:ring-0 focus:ring-primary focus:ring-offset-0 transition-all text-sm dark:focus:ring-offset-white/10"
+                                                            >
+                                                                Get OTP
+                                                                {loading ? <Loader /> : ""}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        ) : (
+                                            <form className="p-4 sm:p-7" onSubmit={handleOTPSubmit}>
+                                            <div className="text-center">
+                                                <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
+                                                    Enter OTP
+                                                </h1>
+                                                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                                                    Please enter the OTP sent to your email
+                                                </p>
+                                            </div>
+                                            <div className="mt-5">
+                                                <div className="grid gap-y-4">
+                                                    <div>
+                                                        <label className="block text-sm mb-2 dark:text-white">
+                                                            OTP Code
+                                                        </label>
+                                                        <div className="relative">
+                                                            <OTPInput 
+                                                                value={value} 
+                                                                onChange={setValue}
+                                                            />
+                                                        </div>
+                                                    </div>
 
-                            <button
-                              type="submit"
-                              className="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-sm border border-transparent font-semibold bg-primary text-white hover:bg-primary focus:outline-none focus:ring-0 focus:ring-primary focus:ring-offset-0 transition-all text-sm dark:focus:ring-offset-white/10"
-                              disabled={value.length !== 6 || loading}
-                            >
-                              Verify OTP
-                              {loading ? <Loader /> : ""}
-                            </button>
-                          </div>
+                                                    <button
+                                                        type="submit"
+                                                        className="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-sm border border-transparent font-semibold bg-primary text-white hover:bg-primary focus:outline-none focus:ring-0 focus:ring-primary focus:ring-offset-0 transition-all text-sm dark:focus:ring-offset-white/10"
+                                                        disabled={value.length !== 6 || loading}
+                                                    >
+                                                        Verify OTP
+                                                        {loading ? <Loader /> : ""}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div className="mt-2 text-sm text-blue-500 dark:text-blue-400">
+                                                <button onClick={()=>setAuthState(1)} className="border-none underline capitalize">Send OTP again</button>
+                                            </div>
+                                        </form>
+                                        )}
+                                    </div>
+                                </div>
+                            </main>
                         </div>
-                        <div className="mt-2 text-sm text-blue-500 dark:text-blue-400">
-                          <button
-                            onClick={() => setAuthState(1)}
-                            className="border-none underline capitalize"
-                          >
-                            Send OTP again
-                          </button>
-                        </div>
-                      </form>
-                    )}
-                  </div>
+                    </div>
                 </div>
-              </main>
-            </div>
-          </div>
-        </div>
-      </HelmetProvider>
-    </Fragment>
-  );
+            </HelmetProvider>
+        </Fragment>
+    );
 };
 
 export default Login;
+
 
 interface OTPInputProps {
   value: string;
@@ -235,100 +232,94 @@ interface OTPInputProps {
 }
 
 const OTPInput: React.FC<OTPInputProps> = ({ value, onChange }) => {
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-
-  useEffect(() => {
-    inputRefs.current = inputRefs.current.slice(0, 6);
-  }, []);
-
-  const handleChange = (
-    index: number,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const newValue = e.target.value;
-    // Only accept numbers
-    if (!/^\d*$/.test(newValue)) return;
-
-    if (newValue.length > 1) {
-      // If user pastes a number
-      const pastedValue = newValue.slice(0, 6);
-      onChange(pastedValue);
-      // Focus last input if paste length is 6
-      if (pastedValue.length === 6) {
-        inputRefs.current[5]?.focus();
-      }
-      return;
-    }
-
-    // Update the value
-    const newOtpValue = value.split("");
-    newOtpValue[index] = newValue;
-    const updatedValue = newOtpValue.join("");
-    onChange(updatedValue);
-
-    // Move to next input if value is entered
-    if (newValue !== "" && index < 5) {
-      inputRefs.current[index + 1]?.focus();
-    }
-  };
-
-  const handleKeyDown = (
-    index: number,
-    e: React.KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (e.key === "Backspace") {
-      e.preventDefault(); // Prevent default backspace behavior
-
-      const currentValue = value[index] || "";
-      const newOtpValue = value.split("");
-
-      if (currentValue === "") {
-        // If current input is empty and we're not at the first input
-        if (index > 0) {
-          // Clear previous input
-          newOtpValue[index - 1] = "";
-          onChange(newOtpValue.join(""));
-          // Move focus to previous input
-          inputRefs.current[index - 1]?.focus();
+    const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  
+    useEffect(() => {
+      inputRefs.current = inputRefs.current.slice(0, 6);
+    }, []);
+  
+    const handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = e.target.value;
+      // Only accept numbers
+      if (!/^\d*$/.test(newValue)) return;
+  
+      if (newValue.length > 1) {
+        // If user pastes a number
+        const pastedValue = newValue.slice(0, 6);
+        onChange(pastedValue);
+        // Focus last input if paste length is 6
+        if (pastedValue.length === 6) {
+          inputRefs.current[5]?.focus();
         }
-      } else {
-        // Clear current input
-        newOtpValue[index] = "";
-        onChange(newOtpValue.join(""));
+        return;
       }
-    } else if (e.key === "ArrowLeft" && index > 0) {
-      e.preventDefault();
-      inputRefs.current[index - 1]?.focus();
-    } else if (e.key === "ArrowRight" && index < 5) {
-      e.preventDefault();
-      inputRefs.current[index + 1]?.focus();
-    } else if (e.key === "ArrowUp" || e.key === "ArrowDown") {
-      e.preventDefault(); // Prevent up/down arrow keys
-    }
-  };
-
-  return (
-    <div className="flex gap-2 justify-center">
-      {[...Array(6)].map((_, index) => (
-        <input
-          key={index}
-          ref={(el) => {
-            inputRefs.current[index] = el;
-          }}
-          type="text" // Changed from "number" to "text"
-          inputMode="numeric"
-          maxLength={1}
-          value={value[index] || ""}
-          onChange={(e) => handleChange(index, e)}
-          onKeyDown={(e) => handleKeyDown(index, e)}
-          className="w-12 h-12 text-center border-2 rounded-md text-lg font-semibold 
+  
+      // Update the value
+      const newOtpValue = value.split('');
+      newOtpValue[index] = newValue;
+      const updatedValue = newOtpValue.join('');
+      onChange(updatedValue);
+  
+      // Move to next input if value is entered
+      if (newValue !== '' && index < 5) {
+        inputRefs.current[index + 1]?.focus();
+      }
+    };
+  
+    const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Backspace') {
+        e.preventDefault(); // Prevent default backspace behavior
+        
+        const currentValue = value[index] || '';
+        const newOtpValue = value.split('');
+        
+        if (currentValue === '') {
+          // If current input is empty and we're not at the first input
+          if (index > 0) {
+            // Clear previous input
+            newOtpValue[index - 1] = '';
+            onChange(newOtpValue.join(''));
+            // Move focus to previous input
+            inputRefs.current[index - 1]?.focus();
+          }
+        } else {
+          // Clear current input
+          newOtpValue[index] = '';
+          onChange(newOtpValue.join(''));
+        }
+      } else if (e.key === 'ArrowLeft' && index > 0) {
+        e.preventDefault();
+        inputRefs.current[index - 1]?.focus();
+      } else if (e.key === 'ArrowRight' && index < 5) {
+        e.preventDefault();
+        inputRefs.current[index + 1]?.focus();
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+        e.preventDefault(); // Prevent up/down arrow keys
+      }
+    };
+  
+    return (
+      <div className="flex gap-2 justify-center">
+        {[...Array(6)].map((_, index) => (
+          <input
+            key={index}
+            ref={(el) => {
+              inputRefs.current[index] = el;
+            }}
+            type="text" // Changed from "number" to "text"
+            inputMode="numeric"
+            maxLength={1}
+            value={value[index] || ''}
+            onChange={(e) => handleChange(index, e)}
+            onKeyDown={(e) => handleKeyDown(index, e)}
+            className="w-12 h-12 text-center border-2 rounded-md text-lg font-semibold 
                      focus:border-primary focus:ring-primary dark:bg-bgdark 
                      dark:border-white/10 dark:text-white/70
                      [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-          pattern="\d*"
-          autoComplete="off"
-        />
-      ))}
-    </div>
-  );
+            pattern="\d*"
+            autoComplete="off"
+          />
+        ))}
+      </div>
+    );
 };
