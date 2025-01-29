@@ -4,16 +4,16 @@ import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Loader } from "../Loader";
-import { formatReadableDate } from "@/libs/helper";
+import { formatReadableDate, formatSortDate } from "@/libs/helper";
 
 export const options = {
-  title: "Weekly Programming Progress",
+  title: "Weekly Progress",
   curveType: "function",
   legend: { position: "bottom" },
   hAxis: {
     title: "Date",
     format: "MMM dd, yyyy",
-    gridlines: { count: 6 },
+    gridlines: { count: 7 },
   },
   vAxis: {
     title: "Problems Solved",
@@ -79,7 +79,7 @@ export function WeeklyGraph({oauth_id}:{oauth_id:string}) {
 
     // Format data for each date in range
     const formattedData = allDates.map(istDate => [
-      formatReadableDate(istDate + 'T00:00:00+05:30'), 
+      formatSortDate(istDate), 
       leetcodeMap.get(istDate) || 0,
       codeforcesMap.get(istDate) || 0
     ]);
@@ -116,11 +116,12 @@ export function WeeklyGraph({oauth_id}:{oauth_id:string}) {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full py-3">
       {loading ? 
         <div className="w-full bg-inherit"><Loader/></div> :
-        <div className="px-2 sm:p-6 w-full overflow-auto scrollbar-hide">
-          <div className="w-full whitespace-nowrap rounded-md border py-5 ps-2">
+        <div className="w-full overflow-auto scrollbar-hide">
+          <h4 className="text-xl px-3 pb-3 pt-2">Weekly Report</h4>
+          <div className="w-[200vw] md:w-[100vw] lg:w-[75vw] 2xl:w-fit">
             <Chart
               chartType="LineChart"
               width="100%"

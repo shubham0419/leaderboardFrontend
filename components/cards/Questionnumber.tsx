@@ -16,7 +16,7 @@ const QuestionNumberCard: React.FC = () => {
     {
       title: "LeetCode Total",
       value: selectedStudent?.leetcode_all?.toFixed(0) || "0",
-      icon: "🏆",
+      icon: "</>",
       color: "text-gray-600 dark:text-gray-300",
     },
     {
@@ -52,7 +52,7 @@ const QuestionNumberCard: React.FC = () => {
 
   if (selectedStudent?.codeforces_ranking) {
     codeforcesQuestions.push({
-      title: "CF Rating",
+      title: "CodeForces Rating",
       value: selectedStudent.codeforces_ranking,
       icon: "🌟",
       color: "text-blue-500",

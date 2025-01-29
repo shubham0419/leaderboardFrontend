@@ -50,7 +50,7 @@ export function LeetcodeHistograph() {
   }, [allQuestions]);
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full pt-2">
       {loading?<div className='col-span-12 h-[80Vh] w-full bg-inherit'><Loader /></div>:<>
       <div className={("flex  items-stretch space-y-0 border-b p-0 md:flex-row md:justify-between px-6")}>
         <div className="flex flex-1 flex-col justify-center gap-1  ">
