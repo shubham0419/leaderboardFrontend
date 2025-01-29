@@ -22,14 +22,6 @@ declare type AddMentorResponseType = {
   data: Mentor;
 };
 
-declare type InstituteType = {
-  id: string;
-  name: string;
-  location: string;
-  year: string[];
-  created_at: Date;
-  updated_at: Date;
-};
 
 declare type getAllInstituteResponseType = {
   status: string;

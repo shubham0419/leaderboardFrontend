@@ -45,10 +45,7 @@ declare type StudentQuestionResType = {
 declare type WeeklyStudentDataResType ={
   status: string;
   message: string;
-  data: {
-    leetcode: StudentWeeklyQuestionsType[];
-    codeforces:StudentWeeklyQuestionsType[];
-  };
+  data: weeklyQuestionsType
 }
 
 declare type StudentWeeklyQuestionsType = {

@@ -1,6 +1,6 @@
 import { UseAuthManager } from "@/hooks/auth.hook";
 import { basePath } from "@/next.config";
-import { authStateSelector, emailSelector, isMentorSelector, mentorDataSelector, otpResSelector, otpSelector, studentDataSelector, studentIdSelector } from "@/recoil/auth.atom";
+import { authStateSelector, emailSelector, instituteDataSelector, isInstituteSelector, mentorDataSelector, otpResSelector, otpSelector, studentDataSelector, studentIdSelector } from "@/recoil/auth.atom";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Fragment, useEffect, useRef, useState } from "react";
@@ -16,17 +16,20 @@ const Login = () => {
     const authManager = UseAuthManager();
     const [authState, setAuthState] = useRecoilState(authStateSelector);
     const [loading, setLoading] = useState(false);
+    const [signup,setSignup] = useState(true);
+    const [name,setName] = useState("");
+    const [location,setLocation] = useState("");
 
     // otp states
     const [value, setValue] = useRecoilState(otpSelector);
     const userId = useRecoilValue(studentIdSelector);
     const setUser = useSetRecoilState(studentDataSelector);
-    const setMentor = useSetRecoilState(mentorDataSelector);
+    const setInstitute = useSetRecoilState(instituteDataSelector);
     const router = useRouter();
 
 
 
-    const isMentor = useRecoilValue(isMentorSelector);
+    const isInstitue = useRecoilValue(isInstituteSelector);
     
     const handleOTPSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -35,16 +38,16 @@ const Login = () => {
             let payload = {
                 userId: userId as string,
                 otp: value,
-                isMentor:isMentor
+                isInstitue:isInstitue
             }
             let res = await authManager.verifyOTP(payload);
             if(res.data?.data) {
-                if(isMentor){
+                if(isInstitue){
                     Cookies.set('mentor',"1", {
                         expires: 7, 
                         secure: true, 
                     });
-                    setMentor(res?.data?.data?.user as Mentor);
+                    setInstitute(res?.data?.data?.user as InstituteType);
                 }else{
                     setUser(res?.data?.data?.user as User);
                 }
@@ -56,13 +59,14 @@ const Login = () => {
                     expires: 7, 
                     secure: true, 
                 });
-                if(isMentor ){
-                    let mentor = res.data.data.user as Mentor;
-                    if(mentor.isAdmin){
-                        return router.push('/dashboard/page');
-                    }else{
-                        return router.push('/error/notAdmin');
-                    }
+                if(isInstitue ){
+                    return router.push('/dashboard/page');
+                    // let mentor = res.data.data.user as Mentor;
+                    // if(mentor.isAdmin){
+                    //     return router.push('/dashboard/page');
+                    // }else{
+                    //     return router.push('/error/notAdmin');
+                    // }
                 }
                 return router.push(`/student/${res.data.data.user.id}`);
             }
@@ -78,7 +82,13 @@ const Login = () => {
         setLoading(true)
         e.preventDefault();
         try {
-            const res = await authManager.getOTP(email,isMentor);
+            let payload = {
+                email,
+                name,
+                location,
+                isInstitue
+            }
+            const res = await authManager.getOTP(payload);
             if (res.status == 200) {
                 setOtpRes(res?.data as loginOTPResType);
                 setAuthState(2);
@@ -126,7 +136,7 @@ const Login = () => {
                                     />
                                 </Link>
                                 <div className="mt-7">
-                                    <div
+                                    {signup?<div
                                         id="pills-with-brand-color-01"
                                         role="tabpanel"
                                         aria-labelledby="pills-with-brand-color-item-1"
@@ -135,7 +145,137 @@ const Login = () => {
                                             <form className="p-4 sm:p-7" onSubmit={handleSubmit}>
                                                 <div className="text-center">
                                                     <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
-                                                        {isMentor?"Authority Sign In":"Sign In"}
+                                                        {isInstitue?"Authority Sign In":"Sign In"}
+                                                    </h1>
+                                                </div>
+                                                <div className="mt-5">
+                                                    <div>
+                                                        <div className="grid gap-y-4">
+                                                            <div>
+                                                                <label
+                                                                    htmlFor="email"
+                                                                    className="block text-sm mb-2 dark:text-white"
+                                                                >
+                                                                    Email address
+                                                                </label>
+                                                                
+                                                                <div className="relative">
+                                                                    <input
+                                                                        type="email"
+                                                                        id="email"
+                                                                        name="email"
+                                                                        onChange={(e) => setEmail(e.target.value)}
+                                                                        placeholder="abc@gmail.com"
+                                                                        value={email}
+                                                                        className="py-2 px-3 block w-full border-gray-200 rounded-sm text-sm focus:border-primary focus:ring-primary dark:bg-bgdark dark:border-white/10 dark:text-white/70"
+                                                                        required
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <label
+                                                                    htmlFor="name"
+                                                                    className="block text-sm mb-2 dark:text-white"
+                                                                >
+                                                                    Institue Name
+                                                                </label>
+                                                                <div className="relative">
+                                                                    <input
+                                                                        type="text"
+                                                                        id="name"
+                                                                        name="name"
+                                                                        onChange={(e) => setName(e.target.value)}
+                                                                        placeholder="Enter Name"
+                                                                        value={name}
+                                                                        className="py-2 px-3 block w-full border-gray-200 rounded-sm text-sm focus:border-primary focus:ring-primary dark:bg-bgdark dark:border-white/10 dark:text-white/70"
+                                                                        required
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <label
+                                                                    htmlFor="location"
+                                                                    className="block text-sm mb-2 dark:text-white"
+                                                                >
+                                                                    Location
+                                                                </label>
+                                                                <div className="relative">
+                                                                    <input
+                                                                        type="text"
+                                                                        id="location"
+                                                                        name="location"
+                                                                        onChange={(e) => setLocation(e.target.value)}
+                                                                        placeholder="Enter location"
+                                                                        value={location}
+                                                                        className="py-2 px-3 block w-full border-gray-200 rounded-sm text-sm focus:border-primary focus:ring-primary dark:bg-bgdark dark:border-white/10 dark:text-white/70"
+                                                                        required
+                                                                    />
+                                                                </div>
+                                                            </div>
+
+                                                            <button
+                                                                type="submit"
+                                                                className="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-sm border border-transparent font-semibold bg-primary text-white hover:bg-primary focus:outline-none focus:ring-0 focus:ring-primary focus:ring-offset-0 transition-all text-sm dark:focus:ring-offset-white/10"
+                                                            >
+                                                                Get OTP
+                                                                {loading ? <Loader /> : ""}
+                                                            </button>
+                                                        </div>
+                                                        <p>Have account? <span className="text-blue-600 underline" onClick={()=>(setSignup(false))}>login instead</span></p>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        ) : (
+                                            <form className="p-4 sm:p-7" onSubmit={handleOTPSubmit}>
+                                            <div className="text-center">
+                                                <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
+                                                    Enter OTP
+                                                </h1>
+                                                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                                                    Please enter the OTP sent to your email
+                                                </p>
+                                            </div>
+                                            <div className="mt-5">
+                                                <div className="grid gap-y-4">
+                                                    <div>
+                                                        <label className="block text-sm mb-2 dark:text-white">
+                                                            OTP Code
+                                                        </label>
+                                                        <div className="relative">
+                                                            <OTPInput 
+                                                                value={value} 
+                                                                onChange={setValue}
+                                                            />
+                                                        </div>
+                                                    </div>
+
+                                                    <button
+                                                        type="submit"
+                                                        className="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-sm border border-transparent font-semibold bg-primary text-white hover:bg-primary focus:outline-none focus:ring-0 focus:ring-primary focus:ring-offset-0 transition-all text-sm dark:focus:ring-offset-white/10"
+                                                        disabled={value.length !== 6 || loading}
+                                                    >
+                                                        Verify OTP
+                                                        {loading ? <Loader /> : ""}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div className="mt-2 text-sm text-blue-500 dark:text-blue-400">
+                                                <button onClick={()=>setAuthState(1)} className="border-none underline capitalize">Send OTP again</button>
+                                            </div>
+                                            
+
+                                        </form>
+                                        )}
+                                    </div>:<div
+                                        id="pills-with-brand-color-01"
+                                        role="tabpanel"
+                                        aria-labelledby="pills-with-brand-color-item-1"
+                                    >
+                                        {authState !== 2 ? (
+                                            <form className="p-4 sm:p-7" onSubmit={handleSubmit}>
+                                                <div className="text-center">
+                                                    <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
+                                                        {isInstitue?"Authority Sign In":"Sign In"}
                                                     </h1>
                                                 </div>
                                                 <div className="mt-5">
@@ -170,6 +310,7 @@ const Login = () => {
                                                                 {loading ? <Loader /> : ""}
                                                             </button>
                                                         </div>
+                                                        <p>Dont't have account? <span className="text-blue-600 underline cursor-pointer" onClick={()=>(setSignup(true))}>signup instead</span></p>
                                                     </div>
                                                 </div>
                                             </form>
@@ -213,6 +354,7 @@ const Login = () => {
                                         </form>
                                         )}
                                     </div>
+                                }
                                 </div>
                             </main>
                         </div>

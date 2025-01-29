@@ -56,6 +56,39 @@ export const mentorDataSelector = selector<Mentor | undefined >({
   }
 })
 
+// institute selector
+export const instituteDataSelector = selector<InstituteType | undefined >({
+  key: 'mentorDataSelector',
+  get: ({ get }) => {
+    const auth = get(userAtom);
+    return auth.instituteDetails ?? undefined;
+  },
+  set:({set},val)=>{
+    set(userAtom,prev=>({
+      ...prev,
+      instituteDetails:val as InstituteType
+    }))
+  }
+})
+
+// institute id selector
+export const instituteIdSelector = selector<string>({
+  key: 'instituteIdSelector',
+  get: ({ get }) => {
+    const auth = get(userAtom);
+    return auth.instituteDetails?.id ?? '';
+  },
+  set:({set},val)=>{
+    set(userAtom,prev=>({
+      ...prev,
+      instituteDetails:{
+        ...prev.instituteDetails,
+        id:val as string
+      }
+    }))
+  }
+})
+
 //otp response selector
 export const otpResSelector = selector<loginOTPResType>({
   key: 'otpRes',
@@ -134,16 +167,16 @@ export const isAdminSelector = selector<boolean>({
 })
 
 // isMentor selector
-export const isMentorSelector = selector<boolean>({
-  key: 'isMentorSelector',
+export const isInstituteSelector = selector<boolean>({
+  key: 'isInstituteSelector',
   get: ({ get }) => {
     const user = get(userAtom);
-    return user.isMentor ?? false;
+    return user.isInstitue ?? false;
   },
   set:({set},val)=>{
     set(userAtom,prev=>({
       ...prev,
-      isMentor:val as boolean
+      isInstitue:val as boolean
     }))
   }
 })

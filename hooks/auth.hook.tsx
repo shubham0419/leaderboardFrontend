@@ -3,9 +3,9 @@ import { errorResponse, successResponse } from "@/services/responseWrapper";
 
 export function UseAuthManager() {
   
-  const getOTP = async(email:string,isMentor?:boolean):Promise<authOTPController> =>{
+  const getOTP = async(payload:LoginPayload):Promise<authOTPController> =>{
     try {
-      let res = await Auth.login(email,isMentor);
+      let res = await Auth.login(payload);
       return successResponse<typeof res>({ data: res });
     } catch (error:any) {
       throw errorResponse({message: error.toString()});

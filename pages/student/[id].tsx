@@ -10,7 +10,7 @@ import StudentQuestionsTable from '@/components/tabels/StudentQuestionsTable';
 import { LeetcodeHistograph } from '@/components/graph/LeetcodeCalender';
 import { Loader } from '@/components/Loader';
 import { CodeforcesCalander } from '@/components/graph/CodeForcesCalender';
-import { WeeklyGraph } from '@/components/graph/weekwiseGraph';
+import { WeeklyGraph } from '@/components/graph/WeekwiseGraph';
 
 const Page = () => {
   const router = useRouter()

@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { CustomSearchSelect } from '../inputs/SearchSelect';
 import { FileUp } from 'lucide-react';
 import API_CONSTANTS from '@/constants/apiConstant';
+import { useRecoilValue } from 'recoil';
+import { instituteIdSelector } from '@/recoil/auth.atom';
 
 const UploadFile = () => {
-  const [name, setName] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const institueId = useRecoilValue(instituteIdSelector);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.item(0);
@@ -20,7 +22,7 @@ const UploadFile = () => {
     setIsOpen(false);
     const formData = new FormData();
     formData.append("datafiles", file as File);
-    formData.append("institue","GLA");
+    formData.append("instituteId",institueId);
 
     try {
       const response = await fetch(`${API_CONSTANTS.BASE_URL}/upload`, {

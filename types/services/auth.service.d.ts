@@ -76,8 +76,17 @@ declare type Mentor = {
   updated_at: Date; 
 }
 
+declare type InstituteType = {
+  id:string,
+  name:string,
+  email:string,
+  location:string,
+  created_at: Date;
+  updated_at: Date;
+}
+
 declare type AuthResponse = {
-  user: User | Mentor;
+  user: User | InstituteType;
   accessToken: string;
 };
 
@@ -87,3 +96,9 @@ declare type verifyUserPayload = {
   isMentor? :boolean
 };
 
+declare type LoginPayload = {
+  email: string;
+  name?:string;
+  location?:string
+  isInstitute?:boolean
+}

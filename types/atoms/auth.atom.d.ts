@@ -4,13 +4,16 @@ declare type authAtom = {
   loginOTPRes: loginOTPResType;
   studentDetails: User;
   mentorDetails:Mentor
+  instituteDetails:InstituteType;
   state:number;
   isAdmin:boolean;
-  isMentor:boolean
+  isInstitue:boolean
 }
 
 declare type loginFormType = {
   email: string;
+  name?:string
+  location?:string
   otp: string;
 };
 

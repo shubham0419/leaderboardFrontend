@@ -24,11 +24,14 @@ declare type weeklyQuestionsType = {
 };
 
 declare type studentFilterType = {
-  sortBy: sortByType;
-  sortOrder: sortOrderType;
+  sortBy?: sortByType;
+  sortOrder?: sortOrderType;
   page: number;
   limit: number;
-  name: string;
+  name?: string;
+  institute_id?:string,
+  batch?:string,
+  section?:string
 };
 
 declare type studentFilterKeysType = keyof studentFilterType;

@@ -10,8 +10,7 @@ type QuestionType = {
 }
 
 const QuestionNumberCard: React.FC = () => {
-  const selectedStudent = useRecoilValue(SelectedStudentSelector)
-
+  const selectedStudent = useRecoilValue(SelectedStudentSelector);
   const leetcodeQuestions: QuestionType[] = [
     {
       title: "LeetCode Total",

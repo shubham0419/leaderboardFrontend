@@ -34,22 +34,22 @@ const InnerChildren = dynamic(() => Promise.resolve(({ children }: { children: R
       }
     };
 
-    const getMentorById = async () => {
-      try {
-        let res = await mentorManager.getMentorById(userId as string);
-        if (res.status === 200) {
-          setMentorData(res?.data?.data);
-        } else {
-          throw new Error("mentor not found");
-        }
-      } catch (error: any) {
-        console.log(error.message);
-      }
-    };
+    // const getInstituteById = async () => {
+    //   try {
+    //     let res = await mentorManager.getMentorById(userId as string);
+    //     if (res.status === 200) {
+    //       setMentorData(res?.data?.data);
+    //     } else {
+    //       throw new Error("mentor not found");
+    //     }
+    //   } catch (error: any) {
+    //     console.log(error.message);
+    //   }
+    // };
 
     if (userId && token) {
       if (isMentor) {
-        getMentorById();
+        // getMentorById();
       } else {
         getStudentById();
       }

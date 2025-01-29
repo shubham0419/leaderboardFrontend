@@ -6,11 +6,13 @@ const StudentDataAtom = atom({
   default: {
     selectedYear:"2025",
     studentDataFilter:{
-      sortBy:"",
-      sortOrder:"",
-      name:"",
+      sortBy:undefined,
+      sortOrder:undefined,
+      name:undefined,
       limit:20,
-      page:1
+      page:1,
+      batch:undefined,
+      section:undefined,
     },
     studentPagination:{
       currentPage: 1,

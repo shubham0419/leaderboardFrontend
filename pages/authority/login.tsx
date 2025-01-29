@@ -2,13 +2,13 @@
 import React, { useEffect } from 'react'
 import Login from '..';
 import { useSetRecoilState } from 'recoil';
-import { isMentorSelector } from '@/recoil/auth.atom';
+import { isInstituteSelector } from '@/recoil/auth.atom';
 
 const LoginMentor = () => {
-  const setIsMentor = useSetRecoilState(isMentorSelector);
+  const setIsInstitute = useSetRecoilState(isInstituteSelector);
 
   useEffect(()=>{
-    setIsMentor(true);
+    setIsInstitute(true);
   },[])
 
   return (

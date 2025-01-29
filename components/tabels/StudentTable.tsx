@@ -1,14 +1,14 @@
 import { UseStudentManager } from '@/hooks/student.hook'
 import { formatReadableDate } from '@/libs/helper';
-import { mentorDataSelector } from '@/recoil/auth.atom';
+import { instituteIdSelector, mentorDataSelector } from '@/recoil/auth.atom';
 import { SelectedStudentSelector, StudentDataPaginationSelector, StudentFilterSelector, StudentsDataSelector } from '@/recoil/student.atom';
-import Link from 'next/link'
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Loader } from '../Loader';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import Cookies from 'js-cookie';
 
 const StudentTable = () => {
 	const studentManager = UseStudentManager();
@@ -21,6 +21,9 @@ const StudentTable = () => {
 	const [studentSortBy, setStudentSortBy] = useRecoilState(StudentFilterSelector("sortBy"))
 	const [studentSortOrder, setStudentSortOrder] = useRecoilState(StudentFilterSelector("sortOrder"))
 	const studentSearch = useRecoilValue(StudentFilterSelector("name"))
+	const [studentBatch, setStudentBatch] = useRecoilState(StudentFilterSelector("batch"));
+	const [studentSection, setStudentSection] = useRecoilState(StudentFilterSelector("section"));
+	const institueId = Cookies.get("CBuser");
 	const router = useRouter();
 
 	// const getStudentDataByMentor = async () => {
@@ -59,7 +62,10 @@ const StudentTable = () => {
 					page: studentPage as number,
 					sortBy: studentSortBy as sortByType,
 					sortOrder: studentSortOrder as sortOrderType,
-					name: studentSearch as string,
+					name: studentSearch as string | undefined,
+					batch: studentBatch as string | undefined,
+					section: studentSection as string | undefined,
+					institute_id:institueId as string
 				}
 			}
 			let res = await studentManager.getAllStudents(filter);
@@ -68,7 +74,7 @@ const StudentTable = () => {
 				setStudentPagination(res.data?.data?.pagination as StudentPagenationResType);
 				setLoading(false);
 			} else {
-				console.log("students not found for this mentor");
+				console.log("students not found");
 			}
 		} catch (error: any) {
 			console.error(error);
@@ -109,7 +115,7 @@ const StudentTable = () => {
 			{loading ? <div className='col-span-12 h-[80Vh] w-full bg-inherit'><Loader /></div> :
 				<div className="col-span-12">
 					<div className="box">
-						<div className="box-header">
+						{/* <div className="box-header">
 							<div className="flex">
 								<h5 className="box-title my-auto">Students Performance Report</h5>
 								<div className="hs-dropdown ti-dropdown block ltr:ml-auto rtl:mr-auto my-auto">
@@ -120,7 +126,7 @@ const StudentTable = () => {
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> */}
 						<div className="box-body">
 							<div className="overflow-auto h-[55vh]" ref={ref}>
 								<table className="ti-custom-table ti-custom-table-head whitespace-nowrap table-bordered rounded-sm ti-custom-table-head ">
